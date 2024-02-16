@@ -1,5 +1,8 @@
 package SecondPackage;
 
+import ThirdPackage.Book;
+import ThirdPackage.Media;
+
 public class Client {
 
     //Attributes :
@@ -79,10 +82,14 @@ public class Client {
     }
 
     //Method equals() :
-    public boolean equals(Client client){
-        if (nameClient==client.getNameClient() && phoneNumberClient==client.getPhoneNumberClient() && emailClient==client.getEmailClient()){
-            return true;
-        }else {return false;}
+    public boolean equals(Object otherObject){
+        if (otherObject==null){ //Make sure that the compared object is not empty (null)
+            return false;
+        }
+        if(this.getClass()!=otherObject.getClass()){ //Make sure that the compared object is from the same class
+            return false;
+        }
+        Client otherClient = (Client) otherObject;
+        return (nameClient==otherClient.nameClient && phoneNumberClient==otherClient.phoneNumberClient && emailClient==otherClient.emailClient);
     }
-
 }

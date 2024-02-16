@@ -1,5 +1,7 @@
 package ThirdPackage;
 
+import SecondPackage.Client;
+
 public abstract class Library {
 
     //Attributes :
@@ -55,6 +57,17 @@ public abstract class Library {
         if(name==library.getName() && author==library.getAuthor() && yearPublication==library.getYearPublication()){
             return true;
         }else{return false;}
+    }
+
+    public boolean equals(Object otherObject){
+        if (otherObject==null){ //Make sure that the compared object is not empty (null)
+            return false;
+        }
+        if(this.getClass()!=otherObject.getClass()){ //Make sure that the compared object is from the same class
+            return false;
+        }
+        Library otherLibrary = (Library) otherObject;
+        return (name==otherLibrary.name && author==otherLibrary.author && yearPublication==otherLibrary.yearPublication);
     }
 
 
