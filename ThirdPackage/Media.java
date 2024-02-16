@@ -1,6 +1,8 @@
 package ThirdPackage;
 
 public class Media extends Library{
+
+    //Attributes :
     String typeMedia;
     String idMedia="M";
     int numberOfMedia=0;
@@ -51,14 +53,14 @@ public class Media extends Library{
         this.idMedia = idMedia+numberOfMedia;
     }
 
-    //toString() Method
+    //Method toString()
     public String toString() {
         return ("\nMedia's ID: " + idMedia +
                 "\n" + super.toString() +
                 "\nType of media: " + typeMedia);
     }
 
-    //equals() Method
+    //Method equals()
     public boolean equals(Media media){
         if(typeMedia==media.getTypeMedia()&&idMedia==media.getIdMedia()){
             return true;

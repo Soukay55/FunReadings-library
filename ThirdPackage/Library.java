@@ -2,6 +2,7 @@ package ThirdPackage;
 
 public class Library {
 
+    //Attributes :
     private String name;
     private String author;
     private int yearPublication;

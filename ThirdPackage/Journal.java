@@ -1,6 +1,8 @@
 package ThirdPackage;
 
 public class Journal extends Library{
+
+    //Attributes
     int volumeNumber;
     String idJournal="J";
     int numberOfJournal=0;
@@ -27,7 +29,7 @@ public class Journal extends Library{
         this.numberOfJournal = numberOfJournal;
     }
 
-    // Parametrized Constructor:
+    //Parametrized Constructor:
     public Journal(int volumeNumber, String name, String author, int yearPublication) {
         this.volumeNumber = volumeNumber;
         super.setName(name);

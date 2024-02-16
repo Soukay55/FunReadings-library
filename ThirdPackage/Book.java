@@ -1,6 +1,8 @@
 package ThirdPackage;
 
 public class Book extends Library{
+
+    //Attributes
     int numberPages;
     String idBook="B";
     int numberOfBooks=0;
