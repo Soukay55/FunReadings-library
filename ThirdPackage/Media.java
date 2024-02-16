@@ -3,6 +3,7 @@ package ThirdPackage;
 public class Media extends Library{
     String typeMedia;
     String idMedia="M";
+    int numberOfMedia=0;
 
     //Getter :
     public String getTypeMedia() {
@@ -10,6 +11,9 @@ public class Media extends Library{
     }
     public String getIdMedia() {
         return idMedia;
+    }
+    public int getNumberOfMedia() {
+        return numberOfMedia;
     }
 
     //Setter :
@@ -19,30 +23,39 @@ public class Media extends Library{
     public void setIdMedia(String idMedia) {
         this.idMedia = idMedia;
     }
+    public void setNumberOfMedia(int numberOfMedia) {
+        this.numberOfMedia = numberOfMedia;
+    }
+
     // Parametrized Constructor:
-    public Media(String typeMedia, String idMedia, int id, String name, String author, int yearPublication) {
+    public Media(String typeMedia, String name, String author, int yearPublication) {
         this.typeMedia = typeMedia;
-        this.idMedia = idMedia;
-        super.setId(id);
         super.setName(name);
         super.setAuthor(author);
         super.setYearPublication(yearPublication);
+        numberOfMedia++;
+        this.idMedia = idMedia+numberOfMedia;
     }
     //Default Constructor:
     public Media(){
+        super();
         this.typeMedia="";
-        this.idMedia="M";
+        numberOfMedia++;
+        this.idMedia = idMedia+numberOfMedia;
     }
     // Copy Constructor:
     public Media(Media media){
+        super(media);
         this.typeMedia=media.getTypeMedia();
-        this.idMedia=media.getIdMedia();
+        numberOfMedia++;
+        this.idMedia = idMedia+numberOfMedia;
     }
 
     //toString() Method
     public String toString() {
-        return "Type of media =" + typeMedia +
-                ", id of media='" + idMedia;
+        return ("\nMedia's ID: " + idMedia +
+                "\n" + super.toString() +
+                "\nType of media: " + typeMedia);
     }
 
     //equals() Method

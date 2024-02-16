@@ -2,7 +2,8 @@ package ThirdPackage;
 
 public class Journal extends Library{
     int volumeNumber;
-    String idJournal;
+    String idJournal="J";
+    int numberOfJournal=0;
 
     //Getter :
     public int getVolumeNumber() {
@@ -10,6 +11,9 @@ public class Journal extends Library{
     }
     public String getIdJournal() {
         return idJournal;
+    }
+    public int getNumberOfJournal() {
+        return numberOfJournal;
     }
 
     //Setter :
@@ -19,32 +23,39 @@ public class Journal extends Library{
     public void setIdJournal(String idJournal) {
         this.idJournal = idJournal;
     }
+    public void setNumberOfJournal(int numberOfJournal) {
+        this.numberOfJournal = numberOfJournal;
+    }
+
     // Parametrized Constructor:
-    public Journal(int volumeNumber, String idJournal, int id, String name, String author, int yearPublication) {
+    public Journal(int volumeNumber, String name, String author, int yearPublication) {
         this.volumeNumber = volumeNumber;
-        this.idJournal = idJournal;
-        super.setId(id);
         super.setName(name);
         super.setAuthor(author);
         super.setYearPublication(yearPublication);
+        numberOfJournal++;
+        this.idJournal=idJournal+numberOfJournal;
     }
     //Default Constructor:
     public Journal(){
         super();
         this.volumeNumber =0;
-        this.idJournal ="J";
+        numberOfJournal++;
+        this.idJournal=idJournal+numberOfJournal;
     }
     // Copy Constructor:
     public Journal(Journal journal){
-        //super(Journal journal);
+        super(journal);
         this.volumeNumber = journal.getVolumeNumber();
-        this.idJournal = journal.getIdJournal();
+        numberOfJournal++;
+        this.idJournal=idJournal+numberOfJournal;
     }
 
     //toString() Method
     public String toString() {
-        return "The number  of volume=" + volumeNumber +
-                ", id of the journal='" + idJournal;
+        return ("\nJournal's ID: " + idJournal +
+                "\n" + super.toString() +
+                "\nVolume number: " + volumeNumber);
     }
 
     //equals() Method

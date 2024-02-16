@@ -2,15 +2,11 @@ package ThirdPackage;
 
 public class Library {
 
-    private int id;
     private String name;
     private String author;
     private int yearPublication;
 
     //Getter :
-    public int getId() {
-        return id;
-    }
     public String getName() {
         return name;
     }
@@ -21,9 +17,6 @@ public class Library {
         return yearPublication;
     }
     //Setter :
-    public void setId(int id) {
-        this.id = id;
-    }
     public void setName(String name) {
         this.name = name;
     }
@@ -35,24 +28,33 @@ public class Library {
     }
 
     //Parametrized Constructor:
-    public Library(int id, String name, String author, int yearPublication){
-        this.id=id;
+    public Library(String name, String author, int yearPublication){
         this.name=name;
         this.author=author;
         this.yearPublication=yearPublication;
     }
+    //Default Constructor :
     public Library(){
-        this.id=0;
         this.name="";
         this.author="";
         this.yearPublication=0000;
     }
-
+    //Copy constructor :
     public Library(Library library){
-        this.id=library.getId();
         this.name= library.getName();
         this.author=library.getAuthor();
         this.yearPublication=library.getYearPublication();
     }
+    //Method toString() :
+    public String toString(){
+        return "Name: " + name + "\nAuthor: " + "\nYear of Publication: " + yearPublication;
+    }
+    //Method equals() :
+    public boolean equals(Library library){
+        if(name==library.getName() && author==library.getAuthor() && yearPublication==library.getYearPublication()){
+            return true;
+        }else{return false;}
+    }
+
 
 }

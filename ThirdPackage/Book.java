@@ -2,7 +2,8 @@ package ThirdPackage;
 
 public class Book extends Library{
     int numberPages;
-    String idBook;
+    String idBook="B";
+    int numberOfBooks=0;
 
     //Getter :
     public int getNumberPages() {
@@ -10,6 +11,9 @@ public class Book extends Library{
     }
     public String getIdBook() {
         return idBook;
+    }
+    public int getNumberOfBooks() {
+        return numberOfBooks;
     }
 
     //Setter :
@@ -19,31 +23,39 @@ public class Book extends Library{
     public void setIdBook(String idBook) {
         this.idBook = idBook;
     }
+    public void setNumberOfBooks() {
+        this.numberOfBooks=numberOfBooks;
+    }
     // Parametrized Constructor:
-    public Book(int numberPages, String idBook, int id, String name, String author, int yearPublication) {
+    public Book(int numberPages, String name, String author, int yearPublication) {
         this.numberPages = numberPages;
-        this.idBook = idBook;
-        super.setId(id);
         super.setName(name);
         super.setAuthor(author);
         super.setYearPublication(yearPublication);
-
+        numberOfBooks++;
+        this.idBook = idBook+numberOfBooks;
     }
     //Default Constructor:
     public Book(){
+        super();
         this.numberPages=0;
-        this.idBook="B";
+        numberOfBooks++;
+        this.idBook=idBook+numberOfBooks;
     }
     // Copy Constructor:
     public Book(Book book){
+        super(book);
         this.numberPages=book.getNumberPages();
         this.idBook=book.getIdBook();
+        numberOfBooks++;
+        this.idBook=idBook+numberOfBooks;
     }
 
     //toString() Method
     public String toString() {
-        return "The number  of pages=" + numberPages +
-                ", id of the book='" + idBook;
+        return ("\nBook's ID: " + idBook+
+                "\n" + super.toString() +
+                "\nNumber  of pages: " + numberPages);
     }
 
     //equals() Method
