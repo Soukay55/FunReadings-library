@@ -31,10 +31,8 @@ public class Journal extends Library{
 
     //Parametrized Constructor:
     public Journal(int volumeNumber, String name, String author, int yearPublication) {
+        super(name, author,yearPublication);
         this.volumeNumber = volumeNumber;
-        super.setName(name);
-        super.setAuthor(author);
-        super.setYearPublication(yearPublication);
         numberOfJournal++;
         this.idJournal=idJournal+numberOfJournal;
     }
@@ -47,23 +45,27 @@ public class Journal extends Library{
     }
     // Copy Constructor:
     public Journal(Journal journal){
-        super(journal);
-        this.volumeNumber = journal.getVolumeNumber();
+        this(journal.volumeNumber, journal.name,journal.author,journal.yearPublication);
         numberOfJournal++;
         this.idJournal=idJournal+numberOfJournal;
     }
 
-    //toString() Method
+    //Method toString()
     public String toString() {
         return ("\nJournal's ID: " + idJournal +
                 "\n" + super.toString() +
                 "\nVolume number: " + volumeNumber);
     }
 
-    //equals() Method
-    public boolean equals(Journal journal){
-        if(volumeNumber ==journal.getVolumeNumber()&& idJournal ==journal.getIdJournal()){
-            return true;
-        }else{return false;}
+    //Method equals()
+    public boolean equals(Object otherObject){
+        if (otherObject==null){ //Make sure that the compared object is not empty (null)
+            return false;
+        }
+        if(this.getClass()!=otherObject.getClass()){ //Make sure that the compared object is from the same class
+            return false;
+        }
+        Journal otherJournal = (Journal) otherObject; //
+        return (volumeNumber ==otherJournal.volumeNumber);
     }
 }

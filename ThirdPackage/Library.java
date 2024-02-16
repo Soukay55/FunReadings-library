@@ -1,11 +1,11 @@
 package ThirdPackage;
 
-public class Library {
+public abstract class Library {
 
     //Attributes :
-    private String name;
-    private String author;
-    private int yearPublication;
+    protected String name;
+    protected String author;
+    protected int yearPublication;
 
     //Getter :
     public String getName() {

@@ -31,10 +31,8 @@ public class Media extends Library{
 
     // Parametrized Constructor:
     public Media(String typeMedia, String name, String author, int yearPublication) {
+        super(name, author,yearPublication);
         this.typeMedia = typeMedia;
-        super.setName(name);
-        super.setAuthor(author);
-        super.setYearPublication(yearPublication);
         numberOfMedia++;
         this.idMedia = idMedia+numberOfMedia;
     }
@@ -47,10 +45,9 @@ public class Media extends Library{
     }
     // Copy Constructor:
     public Media(Media media){
-        super(media);
-        this.typeMedia=media.getTypeMedia();
+        this(media.typeMedia, media.name,media.author,media.yearPublication);
         numberOfMedia++;
-        this.idMedia = idMedia+numberOfMedia;
+        this.idMedia=idMedia+numberOfMedia;
     }
 
     //Method toString()
@@ -61,10 +58,15 @@ public class Media extends Library{
     }
 
     //Method equals()
-    public boolean equals(Media media){
-        if(typeMedia==media.getTypeMedia()&&idMedia==media.getIdMedia()){
-            return true;
-        }else{return false;}
+    public boolean equals(Object otherObject){
+        if (otherObject==null){ //Make sure that the compared object is not empty (null)
+            return false;
+        }
+        if(this.getClass()!=otherObject.getClass()){ //Make sure that the compared object is from the same class
+            return false;
+        }
+        Media otherMedia = (Media) otherObject;
+        return (typeMedia==otherMedia.typeMedia);
     }
 }
 
