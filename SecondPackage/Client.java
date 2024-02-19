@@ -1,6 +1,7 @@
 package SecondPackage;
 
 import ThirdPackage.Book;
+import ThirdPackage.Library;
 import ThirdPackage.Media;
 
 public class Client {
@@ -11,6 +12,7 @@ public class Client {
     private long phoneNumberClient;
     private String emailClient;
     private int numberOfClients;
+    private Library [] itemsLeasedByClient;
 
     //Getter :
     public String getIdClient() {
@@ -28,6 +30,7 @@ public class Client {
     public int getNumberOfClients() {
         return numberOfClients;
     }
+    public Library[] getItemsLeasedByClient() {return itemsLeasedByClient;}
 
     //Setter :
     public void setIdClient(String idClient) {
@@ -46,13 +49,25 @@ public class Client {
         this.numberOfClients = numberOfClients;
     }
 
+    public void setItemsLeasedByClient(Library [] items)
+    {
+        this.itemsLeasedByClient = new Library[items.length];
+        for(int i=0;i<items.length;i++) {
+            this.itemsLeasedByClient[i] = items[i];
+        }
+    }
+
     //Parametrized Constructor :
-    public Client(String nameClient, long phoneNumberClient, String emailClient){
+    public Client(String nameClient, long phoneNumberClient, String emailClient, Library[] items){
         this.nameClient=nameClient;
         this.phoneNumberClient=phoneNumberClient;
         this.emailClient=emailClient;
         numberOfClients++;
         this.idClient=idClient+numberOfClients;
+        this.itemsLeasedByClient = new Library[items.length];
+        for(int i=0;i<items.length;i++) {
+            this.itemsLeasedByClient[i] = items[i];
+        }
     }
 
     //Default Constructor :
@@ -62,6 +77,7 @@ public class Client {
         this.emailClient="";
         numberOfClients++;
         this.idClient=idClient+numberOfClients;
+        this.itemsLeasedByClient = null;
     }
 
     //Copy Constructor :
@@ -71,6 +87,10 @@ public class Client {
         this.emailClient=client.getEmailClient();
         numberOfClients++;
         this.idClient=idClient+numberOfClients;
+        this.itemsLeasedByClient = new Library[client.getItemsLeasedByClient().length];
+        for(int i=0;i<this.itemsLeasedByClient.length;i++) {
+            this.itemsLeasedByClient[i] = client.getItemsLeasedByClient()[i];
+        }
     }
 
     //Method toString() :

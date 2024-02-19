@@ -49,9 +49,12 @@ public abstract class Library {
         this.yearPublication=library.getYearPublication();
     }
     //Method toString() :
+    @Override
     public String toString(){
-        return "Name: " + name + "\nAuthor: " + "\nYear of Publication: " + yearPublication;
+        return "Name: " + name + "\nAuthor: " +author+ "\nYear of Publication: " + yearPublication;
     }
+
+
     //Method equals() :
     public boolean equals(Library library){
         if(name==library.getName() && author==library.getAuthor() && yearPublication==library.getYearPublication()){
@@ -59,6 +62,7 @@ public abstract class Library {
         }else{return false;}
     }
 
+    @Override
     public boolean equals(Object otherObject){
         if (otherObject==null){ //Make sure that the compared object is not empty (null)
             return false;
@@ -69,6 +73,8 @@ public abstract class Library {
         Library otherLibrary = (Library) otherObject;
         return (name==otherLibrary.name && author==otherLibrary.author && yearPublication==otherLibrary.yearPublication);
     }
+
+    public abstract String getID();
 
 
 }

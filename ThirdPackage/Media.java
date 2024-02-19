@@ -51,6 +51,7 @@ public class Media extends Library{
     }
 
     //Method toString()
+    @Override
     public String toString() {
         return ("\nMedia's ID: " + idMedia +
                 "\n" + super.toString() +
@@ -58,6 +59,7 @@ public class Media extends Library{
     }
 
     //Method equals()
+    @Override
     public boolean equals(Object otherObject){
         if (otherObject==null){ //Make sure that the compared object is not empty (null)
             return false;
@@ -67,6 +69,11 @@ public class Media extends Library{
         }
         Media otherMedia = (Media) otherObject;
         return (typeMedia==otherMedia.typeMedia);
+    }
+
+    public String getID()
+    {
+        return idMedia;
     }
 }
 

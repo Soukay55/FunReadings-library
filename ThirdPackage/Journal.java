@@ -51,6 +51,7 @@ public class Journal extends Library{
     }
 
     //Method toString()
+    @Override
     public String toString() {
         return ("\nJournal's ID: " + idJournal +
                 "\n" + super.toString() +
@@ -58,6 +59,7 @@ public class Journal extends Library{
     }
 
     //Method equals()
+    @Override
     public boolean equals(Object otherObject){
         if (otherObject==null){ //Make sure that the compared object is not empty (null)
             return false;
@@ -67,5 +69,10 @@ public class Journal extends Library{
         }
         Journal otherJournal = (Journal) otherObject; //
         return (volumeNumber ==otherJournal.volumeNumber);
+    }
+
+    public String getID()
+    {
+        return idJournal;
     }
 }

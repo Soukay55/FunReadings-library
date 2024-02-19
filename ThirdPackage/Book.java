@@ -53,6 +53,7 @@ public class Book extends Library{
     }
 
     //Method toString()
+    @Override
     public String toString() {
         return ("\nBook's ID: " + idBook+
                 "\n" + super.toString() +
@@ -60,6 +61,7 @@ public class Book extends Library{
     }
 
     //Method equals()
+    @Override
     public boolean equals(Object otherObject){
         if (otherObject==null){ //Make sure that the compared object is not empty (null)
             return false;
@@ -69,5 +71,10 @@ public class Book extends Library{
         }
         Book otherBook = (Book) otherObject;
         return (numberPages==otherBook.numberPages);
+    }
+
+    public String getID()
+    {
+        return idBook;
     }
 }
