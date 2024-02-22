@@ -59,7 +59,7 @@ public class Driver {
     }
 
 
-    //Gets the choice of action listed in the menu that the user wants to do
+    //Gets the choice of action listed in the menu that the user wants to do (Soukay)
     public static int getChoiceMenu(Scanner input)
     {
         displayMenu();
@@ -69,7 +69,7 @@ public class Driver {
         return choice;
     }
 
-    //This functions makes sure that the input of the user for the choice in the menu is valid
+    //This functions makes sure that the input of the user for the choice in the menu is valid(Soukay)
     public static int validateChoiceMenu(int choice,Scanner input)
     {
         while (choice>14||choice<0)
@@ -80,7 +80,7 @@ public class Driver {
         return choice;
     }
 
-    //Method Add Item addItem() :
+    //Method Add Item addItem() :(Soukay)
     public static void addItem(Scanner input,Library item){
         int index =0;
             if (allItemsArray[allItemsArray.length-1] == null) {
@@ -98,6 +98,7 @@ public class Driver {
 
     }
 
+    //(Soukay)
     static Library askTheUserForTheItemHeWantsToAdd(Scanner input)
     {
         System.out.print("What type of item do you want to add (book, journal or media) >>");
@@ -142,7 +143,8 @@ public class Driver {
         return item;
     }
 
-    //This functions makes sure that the input of the user for the choice of the type of item he wants to add
+
+    //This functions makes sure that the input of the user for the choice of the type of item he wants to add (SOukay)
     static String takeValidChoiceOfTypeOfItem(Scanner input)
     {
         String choice = input.next();
@@ -152,10 +154,8 @@ public class Driver {
             choice = input.next();
         }
         return choice;
-
     }
-    //Method Delete Item deleteItem() :
-    //problem at line 186 ill fix it (souky)
+    //Method Delete Item deleteItem() : (Soukay)
     static void deleteItem(Scanner input) {
         System.out.println("Here are all the items of the library:");
         listAllItems();
