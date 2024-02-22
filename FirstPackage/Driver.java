@@ -5,8 +5,6 @@ import ThirdPackage.Book;
 import ThirdPackage.Journal;
 import ThirdPackage.Media;
 
-import javax.swing.plaf.synth.SynthTextAreaUI;
-import java.awt.desktop.SystemEventListener;
 import java.util.Scanner;
 
 public class Driver {
@@ -101,7 +99,7 @@ public class Driver {
 
     }
 
-    static Library askTheUserFortheItemHeWantsToAdd(Scanner input)
+    static Library askTheUserForTheItemHeWantsToAdd(Scanner input)
     {
         System.out.print("What type of item do you want to add (book, journal or media) >>");
         String choice=takeValidChoiceOfTypeOfItem(input);
@@ -178,7 +176,6 @@ public class Driver {
         }
             else {
                 System.out.println("noooooooooooooo");
-
             }
     }
 
@@ -282,7 +279,7 @@ public class Driver {
                 {
                     case 1:
                     {
-                        Library item = askTheUserFortheItemHeWantsToAdd(input);
+                        Library item = askTheUserForTheItemHeWantsToAdd(input);
                         addItem(input,item);
                         listAllItems();
                         for (int i=0;i<allItemsArray.length;i++)
@@ -313,7 +310,7 @@ public class Driver {
                     }
                     case 5:
                     {
-
+                        listAllItems();
                         break;
                     }
                     case 6:

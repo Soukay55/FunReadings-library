@@ -3,9 +3,9 @@ package ThirdPackage;
 public class Media extends Library{
 
     //Attributes :
-    String typeMedia;
-    String idMedia="M";
-    int numberOfMedia=0;
+    private String typeMedia;
+    private String idMedia="M";
+    private int numberOfMedia=0;
 
     //Getter :
     public String getTypeMedia() {

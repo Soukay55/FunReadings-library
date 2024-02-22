@@ -3,9 +3,9 @@ package ThirdPackage;
 public class Journal extends Library{
 
     //Attributes
-    int volumeNumber;
-    String idJournal="J";
-    int numberOfJournal=0;
+    private int volumeNumber;
+    private String idJournal="J";
+    private int numberOfJournal=0;
 
     //Getter :
     public int getVolumeNumber() {
