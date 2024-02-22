@@ -5,7 +5,7 @@ public class Journal extends Library{
     //Attributes
     private int volumeNumber;
     private String idJournal="J";
-    private int numberOfJournal=0;
+    private static int numberOfJournal=0;
 
     //Getter :
     public int getVolumeNumber() {

@@ -5,7 +5,7 @@ public class Media extends Library{
     //Attributes :
     private String typeMedia;
     private String idMedia="M";
-    private int numberOfMedia=0;
+    private static int numberOfMedia=0;
 
     //Getter :
     public String getTypeMedia() {

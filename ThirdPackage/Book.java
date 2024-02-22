@@ -5,7 +5,7 @@ public class Book extends Library{
     //Attributes
     private int numberPages;
     private String idBook="B";
-    private int numberOfBooks=0;
+    private static int numberOfBooks=0;
 
     //Getter :
     public int getNumberPages() {
