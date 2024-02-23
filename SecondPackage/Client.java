@@ -58,16 +58,13 @@ public class Client {
     }
 
     //Parametrized Constructor :
-    public Client(String nameClient, long phoneNumberClient, String emailClient, Library[] items){
+    public Client(String nameClient, long phoneNumberClient, String emailClient){
         this.nameClient=nameClient;
         this.phoneNumberClient=phoneNumberClient;
         this.emailClient=emailClient;
         numberOfClients++;
         this.idClient=idClient+numberOfClients;
-        this.itemsLeasedByClient = new Library[items.length];
-        for(int i=0;i<items.length;i++) {
-            this.itemsLeasedByClient[i] = items[i];
-        }
+        this.itemsLeasedByClient = new Library[0];
     }
 
     //Default Constructor :
@@ -77,7 +74,7 @@ public class Client {
         this.emailClient="";
         numberOfClients++;
         this.idClient=idClient+numberOfClients;
-        this.itemsLeasedByClient = null;
+        this.itemsLeasedByClient = new Library[0];
     }
 
     //Copy Constructor :

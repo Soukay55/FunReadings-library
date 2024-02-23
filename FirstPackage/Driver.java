@@ -14,7 +14,7 @@ public class Driver {
     public static Journal[] allJournalArray;
     public static Media[] allMediaArray;
 
-    public static Client[] allClients;
+    public static Client[] allClientsArray;
 
     static void createAllItemsArray()
     {
@@ -194,17 +194,46 @@ public class Driver {
             System.out.println("\nitem#"+i+"\n"+allItemsArray[i]);
         }
     }
-
-    //Method to add a client addClient() :
-    static void addClient(Scanner input){
-        System.out.println("Enter the client information in the following order: Client name, Phone-number, E-mail, year of publication >> ");
-        String clientName = input.next();
-
-        for (int i=0;i<allClients.length;i++){
-
+    //Method display all the clients displayAllClients():
+    static void displayAllClients(){
+        System.out.println("Here's all your clients :");
+        for (int i=0; i<allClientsArray.length+1; i++){
+            System.out.println(allClientsArray[i].toString() + "\n");
         }
     }
+
+    //Method to add a client addClient() (wissem):
+    static void addClient(Scanner input){
+        System.out.println("Enter the client information in the following order: Client name, Phone-number, E-mail >> ");
+        String trash = input.nextLine();
+        String clientName = input.nextLine();
+        long clientPhoneNumber = input.nextLong();
+        String clientEmail = input.next();
+        Client newClient= new Client(clientName,clientPhoneNumber,clientEmail);
+        //Copy the array and extend it of 1 place to add the client
+        Client[] tempAllClientsArray = new Client[allClientsArray.length+1];
+        for (int i = 0; i< allClientsArray.length; i++){
+            tempAllClientsArray[i]=allClientsArray[i];
+        }
+        tempAllClientsArray[allClientsArray.length+1]=newClient;
+        allClientsArray = tempAllClientsArray;
+        System.out.println("Your client was successfully added.");
+        displayAllClients();
+    }
     //Method to edit a client editClient() :
+    static void editClient(Scanner input){
+        int positionClient;
+        do{
+            System.out.println("Enter the number (#) of the client: ");
+            positionClient = input.nextInt();
+            if (positionClient<0||positionClient>allClientsArray.length){
+                System.out.println("Error, try again. Please enter a number between 0"+ " and " + (allClientsArray.length-1));
+            }
+        } while (positionClient<0||positionClient>allClientsArray.length);
+
+        //continue by asking the clients info
+
+    }
 
     //Method to delete a client deleteClient() :
 
@@ -243,9 +272,9 @@ public class Driver {
             System.out.println(media1);
 
             //Create 3 users
-            Client client1 = new Client("Soukayna",514550287,"haitamis@hotmail.com",items);
-            Client client2 = new Client("Wissem",51489887,"wissem@hotmail.com",items);
-            Client client3 = new Client("Tasneem",439307,"haitamit@hotmail.com",items);
+            Client client1 = new Client("Soukayna",514550287,"haitamis@hotmail.com");
+            Client client2 = new Client("Wissem",51489887,"wissem@hotmail.com");
+            Client client3 = new Client("Tasneem",439307,"haitamit@hotmail.com");
 
 
             //Display the user's information
@@ -321,7 +350,7 @@ public class Driver {
                     }
                     case 6:
                     {
-
+                        addClient(input);
                         break;
                     }
 
