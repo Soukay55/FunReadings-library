@@ -196,7 +196,14 @@ public class Driver {
     }
 
     //Method to add a client addClient() :
+    static void addClient(Scanner input){
+        System.out.println("Enter the client information in the following order: Client name, Phone-number, E-mail, year of publication >> ");
+        String clientName = input.next();
 
+        for (int i=0;i<allClients.length;i++){
+
+        }
+    }
     //Method to edit a client editClient() :
 
     //Method to delete a client deleteClient() :

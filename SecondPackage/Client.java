@@ -11,7 +11,7 @@ public class Client {
     private String nameClient;
     private long phoneNumberClient;
     private String emailClient;
-    private int numberOfClients;
+    private static int numberOfClients;
     private Library [] itemsLeasedByClient;
 
     //Getter :
