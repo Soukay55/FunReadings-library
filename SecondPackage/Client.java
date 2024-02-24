@@ -9,7 +9,7 @@ public class Client {
     //Attributes :
     private String idClient="Client";
     private String nameClient;
-    private long phoneNumberClient;
+    private String phoneNumberClient;
     private String emailClient;
     private static int numberOfClients;
     private Library [] itemsLeasedByClient;
@@ -21,7 +21,7 @@ public class Client {
     public String getNameClient() {
         return nameClient;
     }
-    public long getPhoneNumberClient() {
+    public String getPhoneNumberClient() {
         return phoneNumberClient;
     }
     public String getEmailClient() {
@@ -39,7 +39,7 @@ public class Client {
     public void setNameClient(String nameClient) {
         this.nameClient = nameClient;
     }
-    public void setPhoneNumberClient(long phoneNumberClient) {
+    public void setPhoneNumberClient(String phoneNumberClient) {
         this.phoneNumberClient = phoneNumberClient;
     }
     public void setEmailClient(String emailClient) {
@@ -58,7 +58,7 @@ public class Client {
     }
 
     //Parametrized Constructor :
-    public Client(String nameClient, long phoneNumberClient, String emailClient){
+    public Client(String nameClient, String phoneNumberClient, String emailClient){
         this.nameClient=nameClient;
         this.phoneNumberClient=phoneNumberClient;
         this.emailClient=emailClient;
@@ -70,7 +70,7 @@ public class Client {
     //Default Constructor :
     public Client(){
         this.nameClient="";
-        this.phoneNumberClient=000-000-0000;
+        this.phoneNumberClient="0000000000";
         this.emailClient="";
         numberOfClients++;
         this.idClient=idClient+numberOfClients;

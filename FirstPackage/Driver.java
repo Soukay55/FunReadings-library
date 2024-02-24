@@ -117,6 +117,8 @@ public class Driver {
                 author=input.nextLine();
                 yearOfPublication=input.nextInt();
                 item = new Book(nbOfPages,title,author,yearOfPublication);
+                //addBookToArray(newItem);
+                //listAllBooks();
                 break;
             }
             case "journal":
@@ -128,6 +130,7 @@ public class Driver {
                 author=input.nextLine();
                 yearOfPublication=input.nextInt();
                 item = new Journal(volumeNumber,title,author,yearOfPublication);
+                //addJournalToArray(item);
                 break;
                 }
             case "media":{System.out.print("\nEnter the Media information in the following order: Type of media, title, author, year of publication >> ");
@@ -137,13 +140,24 @@ public class Driver {
                 author=input.nextLine();
                 yearOfPublication=input.nextInt();
                 item = new Media(typeMedia,title,author,yearOfPublication);
+                //addMediaToArray(item);
                 break;
             }
         }
         return item;
     }
+    //Method to add a Book to the Book Array addBookToArray() :(wissem)
+    static void addBookToArray(Book item){
 
+    }
+    //Method to add a Journal to the Journal Array addJournalToArray() :
+    static void addJournalToArray(Journal item){
 
+    }
+    //Method to add a Media to the Media Array addMediaToArray() :
+    static void addMediaToArray(Media item){
+
+    }
     //This functions makes sure that the input of the user for the choice of the type of item he wants to add (SOukay)
     static String takeValidChoiceOfTypeOfItem(Scanner input)
     {
@@ -180,21 +194,62 @@ public class Driver {
 
     //Method to change information of an Item changeInformationItem() :
 
-    //Method to list all the books listAllBooks() :
 
-    //Method to list all the journals listAllJournal() :
+    //Method to list all the books listAllBooks() : (Wissem)
+    static void listAllBooks(){
+        System.out.println("Here's all the Books:");
+        for (int i=0; i< allBooksArray.length-1;i++){
+            System.out.print(allBooksArray[i] + "\n");
+        }
+    }
 
-    //Method to list all the medias listAllMedia() :
+    //Method to list all the journals listAllJournal() : (Wissem)
+    static void listAllJournals(){
+        System.out.println("Here's all the Journals:");
+        for (int i=0; i< allJournalArray.length-1;i++){
+            System.out.print(allJournalArray[i] + "\n");
+        }
+    }
+    //Method to list all the medias listAllMedia() : (Wissem)
+    static void listAllMedia(){
+        System.out.println("Here's all the Medias:");
+        for (int i=0; i< allMediaArray.length-1;i++){
+            System.out.print(allMediaArray[i] + "\n");
+        }
+    }
+    //Methods to list a specific category listSpecificCategory() : (Wissem)
+    static void listSpecificCategory(Scanner input) {
+        System.out.print("Enter the category of document you would like to display (\"Book\", \"Journal\", \"Media\"):");
+        String category = input.next();
+        if (category.equalsIgnoreCase("Book")){
+            if (allJournalArray==null) {
+                System.out.println("Sorry there's no Book for now.");
+            } else{
+                listAllBooks();
+            }
 
+        }else if (category.equalsIgnoreCase("Journal")) {
+            if (allJournalArray==null) {
+                System.out.println("Sorry there's no Journal for now.");
+            } else{
+                listAllJournals();
+            }
+        }else if (category.equalsIgnoreCase("Media")) {
+            if (allMediaArray==null) {
+                System.out.println("Sorry there's no media for now.");
+            } else{
+                listAllMedia();
+            }
+        }
+    }
     //Method to list all items of the array library
     static void listAllItems()
     {
-        for(int i=0;i<allItemsArray.length;i++)
-        {
+        for(int i=0;i<allItemsArray.length;i++) {
             System.out.println("\nitem#"+i+"\n"+allItemsArray[i]);
         }
     }
-    //Method display all the clients displayAllClients():
+    //Method display all the clients displayAllClients(): (Wissem)
     static void displayAllClients(){
         System.out.println("Here's all your clients :");
         for (int i=0; i<allClientsArray.length+1; i++){
@@ -204,10 +259,10 @@ public class Driver {
 
     //Method to add a client addClient() (wissem):
     static void addClient(Scanner input){
-        System.out.println("Enter the client information in the following order: Client name, Phone-number, E-mail >> ");
+        System.out.print("Enter the client information in the following order: Client name, Phone-number, E-mail >> ");
         String trash = input.nextLine();
         String clientName = input.nextLine();
-        long clientPhoneNumber = input.nextLong();
+        String clientPhoneNumber = input.next();
         String clientEmail = input.next();
         Client newClient= new Client(clientName,clientPhoneNumber,clientEmail);
         //Copy the array and extend it of 1 place to add the client
@@ -220,21 +275,45 @@ public class Driver {
         System.out.println("Your client was successfully added.");
         displayAllClients();
     }
-    //Method to edit a client editClient() :
+    //Method to edit a client editClient() : (Wissem)
     static void editClient(Scanner input){
         int positionClient;
         do{
-            System.out.println("Enter the number (#) of the client: ");
+            System.out.print("Enter the number (#) of the client: ");
             positionClient = input.nextInt();
             if (positionClient<0||positionClient>allClientsArray.length){
                 System.out.println("Error, try again. Please enter a number between 0"+ " and " + (allClientsArray.length-1));
             }
         } while (positionClient<0||positionClient>allClientsArray.length);
 
-        //continue by asking the clients info
+        System.out.print("What do you want to modify : \"Name\", \"Phone Number\" or \"Email\"? : ");
+        String clientModification = input.next();
+        if(clientModification.equalsIgnoreCase("Name")){
+            System.out.print("Enter a new name: ");
+            String newName = input.next();
+            allClientsArray[positionClient].setNameClient(newName);
+            System.out.println("This client's name was successfully modified");
+            displayClientInfo(positionClient);
+        } else if (clientModification.equalsIgnoreCase("Phone number")) {
+            System.out.print("Enter a new phone number: ");
+            String newPhoneNumber = input.next();
+            allClientsArray[positionClient].setPhoneNumberClient(newPhoneNumber);
+            System.out.println("This client's phone number was successfully modified");
+            displayClientInfo(positionClient);
+        } else if (clientModification.equalsIgnoreCase("Email")) {
+            System.out.print("Enter a new name: ");
+            String newEmail = input.next();
+            allClientsArray[positionClient].setEmailClient(newEmail);
+            System.out.println("This client's e-mail was successfully modified");
+            displayClientInfo(positionClient);
+        }
 
     }
-
+    //Method to display a specific client's info displayClientInfo(): (wissem)
+    static void displayClientInfo(int i){
+        System.out.println("Here are the information of client #" + i + " :");
+        allClientsArray[i].toString();
+    }
     //Method to delete a client deleteClient() :
 
     //Method to lease an item to client leaseItemToClient() :
@@ -272,9 +351,9 @@ public class Driver {
             System.out.println(media1);
 
             //Create 3 users
-            Client client1 = new Client("Soukayna",514550287,"haitamis@hotmail.com");
-            Client client2 = new Client("Wissem",51489887,"wissem@hotmail.com");
-            Client client3 = new Client("Tasneem",439307,"haitamit@hotmail.com");
+            Client client1 = new Client("Soukayna","514550287","haitamis@hotmail.com");
+            Client client2 = new Client("Wissem","51489887","wissem@hotmail.com");
+            Client client3 = new Client("Tasneem","4393070000","haitamit@hotmail.com");
 
 
             //Display the user's information
@@ -339,7 +418,7 @@ public class Driver {
 
                     case 4:
                     {
-
+                        listSpecificCategory(input);
                         break;
 
                     }
@@ -362,7 +441,7 @@ public class Driver {
 
                     case 8:
                     {
-
+                        editClient(input);
                         break;
                     }
 
