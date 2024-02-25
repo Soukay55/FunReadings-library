@@ -414,7 +414,33 @@ public class Driver {
     //Method to return an item of a client returnItemFromClient() :
 
     //Method to display the leased items of a client displayLeasedItemOfClient() :
+    static void displayLeasedItemOfClient(Scanner input){
+        int clientPosition;
+        do{
+            System.out.println("Enter the number of the client you would like to display their leased items :");
+            clientPosition=input.nextInt();
+            if(clientPosition < 0 || clientPosition > allClientsArray.length){
+                System.out.println("Error, try again. Please enter a number between 0"+ " and " + (allClientsArray.length-1));
+            }
+        }while(clientPosition < 0 || clientPosition > allClientsArray.length);
+        Library[] leasedItemByClient=allClientsArray[clientPosition].getItemsLeasedByClient();
+        for(int i =0; i<leasedItemByClient.length;i++){
+            System.out.println(leasedItemByClient[i] + "\n");
+        }
+        System.out.println("All the leased items were successfully displayed.");
+    }
 
+    //Method to display the leased items of all the clients displayLeasedItemsOfAllClients():
+    static void displayLeasedItemsOfAllClients(Scanner input){
+        for(int j=0; j<allClientsArray.length;j++){
+            Library[] leasedItemByClient=allClientsArray[j].getItemsLeasedByClient();
+            System.out.println("Client#" + j);
+            for(int i =0; i<leasedItemByClient.length;i++){
+                System.out.println(leasedItemByClient[i] + "\n");
+            }
+            System.out.println("\n");
+        }
+    }
     //Method to display the returned items of all the clients displayReturnedItemsOfAllClients() :
 
     //Display the biggest book getBiggestBook() :
@@ -541,11 +567,12 @@ public class Driver {
                     }
                     case 11:
                     {
+                        displayLeasedItemOfClient(input);
                         break;
                     }
                     case 12:
                     {
-
+                        displayLeasedItemsOfAllClients(input);
                         break;
                     }
                     case 13:
