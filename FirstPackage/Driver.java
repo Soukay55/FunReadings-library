@@ -411,7 +411,6 @@ public class Driver {
             }
         }
     }
-    //Method to return an item of a client returnItemFromClient() :
 
     //Method to display the leased items of a client displayLeasedItemOfClient() :
     static void displayLeasedItemOfClient(Scanner input){
@@ -441,10 +440,22 @@ public class Driver {
             System.out.println("\n");
         }
     }
+    //Method to return an item of a client returnItemFromClient() :
+
     //Method to display the returned items of all the clients displayReturnedItemsOfAllClients() :
 
     //Display the biggest book getBiggestBook() :
-
+    static void getBiggestBook(){
+        Book biggestBook=allBooksArray[0];
+        int biggestBookPosition=0;
+        for(int i=1; i<allBooksArray.length;i++){
+            if(allBooksArray[i].getNumberPages()>biggestBook.getNumberPages()){
+                biggestBook=allBooksArray[i];
+                biggestBookPosition=i;
+            }
+        }
+        System.out.println("The biggest book is the Book #" + biggestBookPosition);
+    }
     //Copy books copyBooks() :
 
     public static void main(String[] args) {
@@ -577,7 +588,7 @@ public class Driver {
                     }
                     case 13:
                     {
-
+                        getBiggestBook();
                         break;
                     }
                     case 14:
