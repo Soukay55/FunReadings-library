@@ -403,6 +403,7 @@ public class Driver {
                 allClientsArray[clientPositionToLeaseTo].setItemsLeasedByClient(leasedItemByClient);
                 System.out.println("The item #"+itemPositionToLease+" has been leased successfully to client #"+clientPositionToLeaseTo);
             }
+            //rajouter code qui delete le item du array pour que ce soit plus possible de le lease
         }else{
             if(allClientsArray[allClientsArray.length-1] == null) {
                 System.out.println("There's no client yet.");
