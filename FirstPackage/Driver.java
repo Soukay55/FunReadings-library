@@ -20,7 +20,10 @@ public class Driver {
     {
         allItemsArray = new Library[1];
     }
-
+    static void createAllClientsArray()
+    {
+        allClientsArray = new Client[1];
+    }
     //Method that asks the user if he wants the menu or a predefined Scenario menuOrPredefinedScenario(Scanner input):
     public static int menuOrPredefinedScenario(Scanner input)
     {
@@ -197,24 +200,36 @@ public class Driver {
 
     //Method to list all the books listAllBooks() : (Wissem)
     static void listAllBooks(){
-        System.out.println("Here's all the Books:");
-        for (int i=0; i< allBooksArray.length-1;i++){
-            System.out.print(allBooksArray[i] + "\n");
+        if(allItemsArray!=null) {
+            System.out.println("Here's all the Books:");
+            for (int i = 0; i < allBooksArray.length - 1; i++) {
+                System.out.print(allBooksArray[i] + "\n");
+            }
+        }else{
+            System.out.println("There's no book yet.");
         }
     }
 
     //Method to list all the journals listAllJournal() : (Wissem)
     static void listAllJournals(){
-        System.out.println("Here's all the Journals:");
-        for (int i=0; i< allJournalArray.length-1;i++){
-            System.out.print(allJournalArray[i] + "\n");
+        if(allItemsArray!=null) {
+            System.out.println("Here's all the Journals:");
+            for (int i=0; i< allJournalArray.length-1;i++){
+                System.out.print(allJournalArray[i] + "\n");
+            }
+        }else{
+            System.out.println("There's no journal yet.");
         }
     }
     //Method to list all the medias listAllMedia() : (Wissem)
     static void listAllMedia(){
-        System.out.println("Here's all the Medias:");
-        for (int i=0; i< allMediaArray.length-1;i++){
-            System.out.print(allMediaArray[i] + "\n");
+        if(allItemsArray!=null) {
+            System.out.println("Here's all the Medias:");
+            for (int i=0; i< allMediaArray.length-1;i++) {
+                System.out.print(allMediaArray[i] + "\n");
+            }
+        }else{
+            System.out.println("There's no media yet.");
         }
     }
     //Methods to list a specific category listSpecificCategory() : (Wissem)
@@ -242,11 +257,14 @@ public class Driver {
             }
         }
     }
-    //Method to list all items of the array library
-    static void listAllItems()
-    {
-        for(int i=0;i<allItemsArray.length;i++) {
-            System.out.println("\nitem#"+i+"\n"+allItemsArray[i]);
+    //Method to list all items of the array library (soukay)
+    static void listAllItems() {
+        if(allItemsArray[allItemsArray.length] == null|| allClientsArray[allClientsArray.length] == null) {
+            System.out.println("There's no item yet.");
+        }else{
+            for (int i = 0; i < allItemsArray.length; i++) {
+                System.out.println("\nitem#" + i + "\n" + allItemsArray[i]);
+            }
         }
     }
     //Method display all the clients displayAllClients(): (Wissem)
@@ -315,9 +333,66 @@ public class Driver {
         allClientsArray[i].toString();
     }
     //Method to delete a client deleteClient() :
+    static void deleteClient(Scanner input){
+        int deleteClientPosition;
+        if(allClientsArray[allClientsArray.length-1] == null){
+            do{
+                System.out.println("Enter the number (#) of the client you would like to remove:");
+                deleteClientPosition=input.nextInt();
+                if (deleteClientPosition<0||deleteClientPosition<allClientsArray.length){
+                    System.out.println("Error, try again. Please enter a number between 0"+ " and " + (allClientsArray.length-1));
+                }
+            }while(deleteClientPosition<0||deleteClientPosition<allClientsArray.length);
+            Client[] tempAllClientsArray = new Client[allClientsArray.length-1];
+            for (int i =0; i<allClientsArray.length-1;i++){
+                if(i>=deleteClientPosition){
+                    tempAllClientsArray[i]=allClientsArray[i];
+                }else{
+                    tempAllClientsArray[i]=allClientsArray[i+1];
+                }
+            }
+            allClientsArray=tempAllClientsArray;
+        }else{
+            System.out.println("There's no client yet.");
+        }
+
+    }
 
     //Method to lease an item to client leaseItemToClient() :
-
+    static void leaseItemToClient(Scanner input) {
+        int clientPositionToLeaseTo;
+        if (allItemsArray[allItemsArray.length-1] != null && allClientsArray[allClientsArray.length-1] != null) {
+            do {
+                System.out.println("Enter the number (#) of the client you would like to lease an item to:");
+                clientPositionToLeaseTo = input.nextInt();
+                if (clientPositionToLeaseTo < 0 || clientPositionToLeaseTo < allClientsArray.length) {
+                    System.out.println("Error, try again. Please enter a number between 0" + " and " + (allClientsArray.length - 1));
+                }
+            } while (clientPositionToLeaseTo < 0 || clientPositionToLeaseTo < allClientsArray.length);
+            int itemPositionToLease;
+            do {
+                System.out.println("Enter the number (#) of the item you would like to lease : ");
+                itemPositionToLease = input.nextInt();
+                if (itemPositionToLease < 0 || itemPositionToLease < allItemsArray.length) {
+                    System.out.println("Error, try again. Please enter a number between 0" + " and " + (allItemsArray.length - 1));
+                }
+            } while (itemPositionToLease < 0 || itemPositionToLease < allItemsArray.length);
+            Library[] leasedItemByClient = allClientsArray[clientPositionToLeaseTo].getItemsLeasedByClient();
+            Library[] newLeasedItemByClient= new Library[leasedItemByClient.length+1];
+            for (int i=0; i<leasedItemByClient.length;i++){
+                newLeasedItemByClient[i]=leasedItemByClient[i];
+            }
+            newLeasedItemByClient[leasedItemByClient.length+1]=allItemsArray[clientPositionToLeaseTo];
+            leasedItemByClient=newLeasedItemByClient;
+            allClientsArray[clientPositionToLeaseTo].setItemsLeasedByClient(leasedItemByClient);
+        }else{
+            if(allClientsArray[allClientsArray.length-1] == null) {
+                System.out.println("There's no client yet.");
+            }else if(allItemsArray[allItemsArray.length-1] == null){
+                System.out.println("There's no item yet.");
+            }
+        }
+    }
     //Method to return an item of a client returnItemFromClient() :
 
     //Method to display the leased items of a client displayLeasedItemOfClient() :
@@ -391,8 +466,7 @@ public class Driver {
                 menuChoice = getChoiceMenu(input);
                 switch(menuChoice)
                 {
-                    case 1:
-                    {
+                    case 1: {
                         Library item = askTheUserForTheItemHeWantsToAdd(input);
                         addItem(input,item);
                         listAllItems();
@@ -402,40 +476,34 @@ public class Driver {
                         }
                         break;
                     }
-                    case 2:
-                    {
+                    case 2: {
 
                         deleteItem(input);
                         listAllItems();
                         break;
                     }
 
-                    case 3:
-                    {
+                    case 3: {
 
                         break;
                     }
 
-                    case 4:
-                    {
+                    case 4: {
                         listSpecificCategory(input);
                         break;
 
                     }
-                    case 5:
-                    {
+                    case 5: {
                         listAllItems();
                         break;
                     }
-                    case 6:
-                    {
+                    case 6: {
                         addClient(input);
                         break;
                     }
 
-                    case 7:
-                    {
-
+                    case 7: {
+                        deleteClient(input);
                         break;
                     }
 
@@ -447,7 +515,7 @@ public class Driver {
 
                     case 9:
                     {
-
+                        leaseItemToClient(input);
                         break;
                     }
                     case 10:
