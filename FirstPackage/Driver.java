@@ -398,7 +398,7 @@ public class Driver {
                 for (int i = 0; i < leasedItemByClient.length; i++) {
                     newLeasedItemByClient[i] = leasedItemByClient[i];
                 }
-                newLeasedItemByClient[leasedItemByClient.length - 1] = allItemsArray[clientPositionToLeaseTo];
+                newLeasedItemByClient[newLeasedItemByClient.length - 1] = allItemsArray[clientPositionToLeaseTo];
                 leasedItemByClient = newLeasedItemByClient;
                 allClientsArray[clientPositionToLeaseTo].setItemsLeasedByClient(leasedItemByClient);
                 System.out.println("The item #"+itemPositionToLease+" has been leased successfully to client #"+clientPositionToLeaseTo);
