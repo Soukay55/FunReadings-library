@@ -64,7 +64,7 @@ public class Client {
         this.emailClient=emailClient;
         numberOfClients++;
         this.idClient=idClient+numberOfClients;
-        this.itemsLeasedByClient = new Library[0];
+        this.itemsLeasedByClient = new Library[1];
     }
 
     //Default Constructor :
@@ -74,7 +74,7 @@ public class Client {
         this.emailClient="";
         numberOfClients++;
         this.idClient=idClient+numberOfClients;
-        this.itemsLeasedByClient = new Library[0];
+        this.itemsLeasedByClient = new Library[1];
     }
 
     //Copy Constructor :
