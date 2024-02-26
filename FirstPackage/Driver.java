@@ -20,6 +20,18 @@ public class Driver {
     {
         allItemsArray = new Library[1];
     }
+
+    static void createAllBooksArray()
+    {
+        allBooksArray = new Book[1];
+    }
+
+    static void createAllJournalArray() {allJournalArray = new Journal[1];}
+
+    static void createAllMediaArray()
+    {
+        allMediaArray = new Media[1];
+    }
     static void createAllClientsArray()
     {
         allClientsArray = new Client[1];
@@ -120,8 +132,8 @@ public class Driver {
                 author=input.nextLine();
                 yearOfPublication=input.nextInt();
                 item = new Book(nbOfPages,title,author,yearOfPublication);
-                //addBookToArray(newItem);
-                //listAllBooks();
+                addBookToArray((Book) item);
+                listAllBooks();
                 break;
             }
             case "journal":
@@ -133,7 +145,7 @@ public class Driver {
                 author=input.nextLine();
                 yearOfPublication=input.nextInt();
                 item = new Journal(volumeNumber,title,author,yearOfPublication);
-                //addJournalToArray(item);
+                addJournalToArray((Journal) item);
                 break;
                 }
             case "media":{System.out.print("\nEnter the Media information in the following order: Type of media, title, author, year of publication >> ");
@@ -143,7 +155,7 @@ public class Driver {
                 author=input.nextLine();
                 yearOfPublication=input.nextInt();
                 item = new Media(typeMedia,title,author,yearOfPublication);
-                //addMediaToArray(item);
+                addMediaToArray((Media) item);
                 break;
             }
         }
@@ -151,14 +163,51 @@ public class Driver {
     }
     //Method to add a Book to the Book Array addBookToArray() :(wissem)
     static void addBookToArray(Book item){
-
+        int index =0;
+        if (allBooksArray[allBooksArray.length-1] == null) {
+            allBooksArray[allBooksArray.length-1] = item;
+        }
+        else
+        {
+            Book [] tempArray = new Book[allBooksArray.length + 1];
+            for (int i = 0; i < allBooksArray.length; i++) {
+                tempArray[i] = allBooksArray[i];
+            }
+            tempArray[tempArray.length - 1] = item;
+            allBooksArray = tempArray;
+        }
     }
     //Method to add a Journal to the Journal Array addJournalToArray() :
     static void addJournalToArray(Journal item){
-
+        int index =0;
+        if (allJournalArray[allJournalArray.length-1] == null) {
+            allJournalArray[allJournalArray.length-1] = item;
+        }
+        else
+        {
+            Journal [] tempArray = new Journal[allJournalArray.length + 1];
+            for (int i = 0; i < allJournalArray.length; i++) {
+                tempArray[i] = allJournalArray[i];
+            }
+            tempArray[tempArray.length - 1] = item;
+            allJournalArray = tempArray;
+        }
     }
     //Method to add a Media to the Media Array addMediaToArray() :
     static void addMediaToArray(Media item){
+        int index =0;
+        if (allMediaArray[allMediaArray.length-1] == null) {
+            allMediaArray[allMediaArray.length-1] = item;
+        }
+        else
+        {
+            Media [] tempArray = new Media[allMediaArray.length+1];
+            for (int i = 0; i < allMediaArray.length; i++) {
+                tempArray[i] = allMediaArray[i];
+            }
+            tempArray[tempArray.length - 1] = item;
+            allMediaArray = tempArray;
+        }
 
     }
     //This functions makes sure that the input of the user for the choice of the type of item he wants to add (SOukay)
@@ -178,7 +227,22 @@ public class Driver {
         listAllItems();
         System.out.print("What is the number of the one you want to delete enter here >>");
         int index = input.nextInt();
+        deleteItemFromAllArrays(index);
+    }
 
+    static void deleteItemFromAllArrays(int index)
+    {
+        if(allItemsArray[index].getClass().equals(Book.class))
+        {
+            deleteBook(index);
+        }
+        else if(allItemsArray[index].getClass().equals(Journal.class))
+        {
+            deleteJournal(index);
+        }
+        else {
+            deleteMedia(index);
+        }
         if(index>=0&&index<allItemsArray.length)
         {
             for (int j = index; j < allItemsArray.length - 1; j++) {
@@ -190,20 +254,269 @@ public class Driver {
             }
             allItemsArray = tempArray;
         }
-            else {
-                System.out.println("noooooooooooooo");
+        else {
+            System.out.println("noooooooooooooo");
+        }
+    }
+
+
+    static void deleteBook(int index)
+    {
+        int indexBook=0;
+
+        for (int i = 0;i<allBooksArray.length;i++)
+        {
+            if (allBooksArray[i].equals(allItemsArray[index]))
+            {
+               indexBook=i;
             }
+        }
+        for (int j = indexBook; j < allBooksArray.length - 1; j++) {
+            allBooksArray[j] = allBooksArray[j + 1];
+        }
+        Book[] tempArray = new Book[allBooksArray.length-1];
+        for (int n = 0; n < tempArray.length; n++) {
+            tempArray[n] = allBooksArray[n];
+        }
+        allBooksArray = tempArray;
+        listAllBooks();
+    }
+
+    static void deleteJournal(int index)
+    {
+        int indexBook=0;
+
+        for (int i = 0;i<allJournalArray.length;i++)
+        {
+            if (allJournalArray[i].equals(allItemsArray[index]))
+            {
+                indexBook=i;
+            }
+        }
+        for (int j = indexBook; j < allJournalArray.length - 1; j++) {
+            allJournalArray[j] = allJournalArray[j + 1];
+        }
+        Journal[] tempArray = new Journal[allJournalArray.length-1];
+        for (int n = 0; n < tempArray.length; n++) {
+            tempArray[n] = allJournalArray[n];
+        }
+        allJournalArray = tempArray;
+        listAllJournals();
+    }
+
+    static void deleteMedia(int index)
+    {
+        int indexBook=0;
+
+        for (int i = 0;i<allMediaArray.length;i++)
+        {
+            if (allMediaArray[i].equals(allItemsArray[index]))
+            {
+                indexBook=i;
+            }
+        }
+        for (int j = indexBook; j < allMediaArray.length - 1; j++) {
+            allMediaArray[j] = allMediaArray[j + 1];
+        }
+        Media[] tempArray = new Media[allMediaArray.length-1];
+        for (int n = 0; n < tempArray.length; n++) {
+            tempArray[n] = allMediaArray[n];
+        }
+        allMediaArray = tempArray;
+        listAllMedia();
     }
 
     //Method to change information of an Item changeInformationItem() :
+    static void changeInformationItem(Scanner input)
+    {
+        listAllItems();
+        System.out.print("Please enter the number (#) of the item you want to edit >>  ");
+        int index = input.nextInt();
+        int choice =0;
+        while (index<0||index>=allItemsArray.length)
+        {
+            System.out.println();
+            System.out.print("This item doesn't exist please enter a valid number >>  ");
+            index= input.nextInt();
+        }
+        System.out.println();
+        System.out.println("Here is the item's information: "+allItemsArray[index]);
+        if(allItemsArray[index].getClass().equals(Book.class))
+        {
+            System.out.println();
+            System.out.print("Which attribute do you want to edit ?\n1 >> Title\n2 >> Author\n3 >> Year of publication" +
+                    "\n4 >> Number of pages\nPlease enter your choice >> ");
+            choice= input.nextInt();
+            while (choice<1||choice>4)
+            {
+                System.out.println();
+                System.out.println("This is not a valid choice please try again >> ");
+                choice = input.nextInt();
+            }
+            Book book = (Book) allItemsArray[index];
+            int indexOfBookInBookArray = 0;
+            for (int i =0;i<allBooksArray.length;i++)
+            {
+                if (allBooksArray[i].equals(allItemsArray[index]))
+                {
+                    indexOfBookInBookArray=i;
+                }
+            }
+            switch(choice)
+            {
+                case 1:
+                {
+                    System.out.print("Please enter the new title of the book >> ");
+                    String title = input.next();
+                    book.setName(title);
+                    break;
+                }
+                case 2:
+                {
+                    System.out.print("Please enter the new Author of the book >> ");
+                    String author = input.next();
+                    book.setAuthor(author);
+                    break;
+                }
+                case 3:
+                {
+                    System.out.print("Please enter the new year of publication of the book >> ");
+                    int year = input.nextInt();
+                    book.setYearPublication(year);
+                    break;
+                }
+                case 4:
+                {
+                    System.out.print("Please enter the new number of pages of the book >> ");
+                    int number = input.nextInt();
+                    book.setNumberPages(number);
+                    break;
+                }
+            }
+            allItemsArray[index] = book;
+            allBooksArray[indexOfBookInBookArray]=(Book)allItemsArray[index];
 
+        }
+        else if(allItemsArray[index].getClass().equals(Journal.class))
+        {
+            System.out.println();
+            System.out.print("Which attribute do you want to edit ?\n1 >> Title\n2 >> Author\n3 >> Year of publication" +
+                    "\n4 >> Volume number\nPlease enter your choice >> ");
+            choice= input.nextInt();
+            while (choice<1||choice>4)
+            {
+                System.out.println();
+                System.out.println("This is not a valid choice please try again >> ");
+                choice = input.nextInt();
+            }
+            Journal journal = (Journal) allItemsArray[index];
+            int indexOfJournalInJournalArray = 0;
+            for (int i =0;i<allJournalArray.length;i++)
+            {
+                if (allJournalArray[i].equals(allItemsArray[index]))
+                {
+                    indexOfJournalInJournalArray=i;
+                }
+            }
+            switch(choice)
+            {
+                case 1:
+                {
+                    System.out.print("Please enter the new title of the journal >> ");
+                    String title = input.next();
+                    journal.setName(title);
+                    break;
+                }
+                case 2:
+                {
+                    System.out.print("Please enter the new Author of the journal >> ");
+                    String author = input.next();
+                    journal.setAuthor(author);
+                    break;
+                }
+                case 3:
+                {
+                    System.out.print("Please enter the new year of publication of the journal >> ");
+                    int year = input.nextInt();
+                    journal.setYearPublication(year);
+                    break;
+                }
+                case 4:
+                {
+                    System.out.print("Please enter the new number of pages of the journal >> ");
+                    int number = input.nextInt();
+                    journal.setVolumeNumber(number);
+                    break;
+                }
+            }
+            allItemsArray[index] = journal;
+            allJournalArray[indexOfJournalInJournalArray]=(Journal)allItemsArray[index];
+
+        }
+        else
+        {
+            System.out.println();
+            System.out.print("Which attribute do you want to edit ?\n1 >> Title\n2 >> Author\n3 >> Year of publication" +
+                    "\n4 >> Type of media\nPlease enter your choice >> ");
+            choice= input.nextInt();
+            while (choice<1||choice>4)
+            {
+                System.out.println();
+                System.out.println("This is not a valid choice please try again >> ");
+                choice = input.nextInt();
+            }
+            Media media = (Media) allItemsArray[index];
+            int indexOfMediaInMediaArray = 0;
+            for (int i =0;i<allMediaArray.length;i++)
+            {
+                if (allMediaArray[i].equals(allItemsArray[index]))
+                {
+                    indexOfMediaInMediaArray=i;
+                }
+            }
+            switch(choice)
+            {
+                case 1:
+                {
+                    System.out.print("Please enter the new title of the media >> ");
+                    String title = input.next();
+                    media.setName(title);
+                    break;
+                }
+                case 2:
+                {
+                    System.out.print("Please enter the new Author of the media >> ");
+                    String author = input.next();
+                    media.setAuthor(author);
+                    break;
+                }
+                case 3:
+                {
+                    System.out.print("Please enter the new year of publication of the media >> ");
+                    int year = input.nextInt();
+                    media.setYearPublication(year);
+                    break;
+                }
+                case 4:
+                {
+                    System.out.print("Please enter the new number of pages of the book >> ");
+                    String type = input.next();
+                    media.setTypeMedia(type);
+                    break;
+                }
+            }
+            allItemsArray[index] = media;
+            allMediaArray[indexOfMediaInMediaArray]=(Media)allItemsArray[index];
+
+        }
+    }
 
     //Method to list all the books listAllBooks() : (Wissem)
     static void listAllBooks(){
         if(allItemsArray!=null) {
             System.out.println("Here's all the Books:");
-            for (int i = 0; i < allBooksArray.length - 1; i++) {
-                System.out.print(allBooksArray[i] + "\n");
+            for (int i = 0; i < allBooksArray.length; i++) {
+                System.out.print("book #"+i+"\n"+allBooksArray[i] + "\n");
             }
         }else{
             System.out.println("There's no book yet.");
@@ -214,8 +527,8 @@ public class Driver {
     static void listAllJournals(){
         if(allItemsArray!=null) {
             System.out.println("Here's all the Journals:");
-            for (int i=0; i< allJournalArray.length-1;i++){
-                System.out.print(allJournalArray[i] + "\n");
+            for (int i=0; i< allJournalArray.length;i++){
+                System.out.print("journal #"+i+"\n"+allJournalArray[i] + "\n");
             }
         }else{
             System.out.println("There's no journal yet.");
@@ -225,8 +538,8 @@ public class Driver {
     static void listAllMedia(){
         if(allItemsArray!=null) {
             System.out.println("Here's all the Medias:");
-            for (int i=0; i< allMediaArray.length-1;i++) {
-                System.out.print(allMediaArray[i] + "\n");
+            for (int i=0; i< allMediaArray.length;i++) {
+                System.out.print("media #"+i+"\n"+allMediaArray[i] + "\n");
             }
         }else{
             System.out.println("There's no media yet.");
@@ -262,6 +575,7 @@ public class Driver {
         if(allItemsArray[allItemsArray.length-1]==null) {
             System.out.println("There's no item yet.");
         }else{
+            System.out.println("Here are all the items: ");
             for (int i = 0; i < allItemsArray.length; i++) {
                 System.out.println("\nitem#" + i + "\n" + allItemsArray[i]);
             }
@@ -391,6 +705,7 @@ public class Driver {
             if(leasedItemByClient[leasedItemByClient.length-1]==null)
             {
                 leasedItemByClient[leasedItemByClient.length-1]=allItemsArray[clientPositionToLeaseTo];
+                deleteItemFromAllArrays(itemPositionToLease);
                 System.out.println("The item #"+itemPositionToLease+" has been leased successfully to client #"+clientPositionToLeaseTo);
             }
             else {
@@ -401,9 +716,9 @@ public class Driver {
                 newLeasedItemByClient[newLeasedItemByClient.length - 1] = allItemsArray[clientPositionToLeaseTo];
                 leasedItemByClient = newLeasedItemByClient;
                 allClientsArray[clientPositionToLeaseTo].setItemsLeasedByClient(leasedItemByClient);
+                deleteItemFromAllArrays(itemPositionToLease);
                 System.out.println("The item #"+itemPositionToLease+" has been leased successfully to client #"+clientPositionToLeaseTo);
             }
-            //rajouter code qui delete le item du array pour que ce soit plus possible de le lease
         }else{
             if(allClientsArray[allClientsArray.length-1] == null) {
                 System.out.println("There's no client yet.");
@@ -514,11 +829,15 @@ public class Driver {
 
             //Create an array for all the items(Book, Journal and Media)
             Library[] allItems = {book,journal,media};
+
         }
         else {
             int menuChoice=0;
             createAllItemsArray();
             createAllClientsArray();
+            createAllBooksArray();
+            createAllJournalArray();
+            createAllMediaArray();
             do {
                 menuChoice = getChoiceMenu(input);
                 switch(menuChoice)
@@ -537,7 +856,7 @@ public class Driver {
                     }
 
                     case 3: {
-
+                        changeInformationItem(input);
                         break;
                     }
 
@@ -574,7 +893,6 @@ public class Driver {
                     }
                     case 10:
                     {
-
                         break;
                     }
                     case 11:
@@ -594,7 +912,6 @@ public class Driver {
                     }
                     case 14:
                     {
-
                         break;
                     }
                 }
