@@ -161,8 +161,27 @@ public class Driver {
         }
         return item;
     }
+    //general method
+//    static void addItemToHisArray(Library item,Library []array)
+//    {
+//        int index =0;
+//        if (array[array.length-1] == null) {
+//            array[array.length-1] = item;
+//        }
+//        else
+//        {
+//            Library [] tempArray = new Library[array.length + 1];
+//            for (int i = 0; i < array.length; i++) {
+//                tempArray[i] = array[i];
+//            }
+//            tempArray[tempArray.length - 1] = item;
+//            array= tempArray;
+//        }
+//    }
     //Method to add a Book to the Book Array addBookToArray() :(wissem)
     static void addBookToArray(Book item){
+
+        //addItemToHisArray(item,allBooksArray);
         int index =0;
         if (allBooksArray[allBooksArray.length-1] == null) {
             allBooksArray[allBooksArray.length-1] = item;
@@ -179,6 +198,7 @@ public class Driver {
     }
     //Method to add a Journal to the Journal Array addJournalToArray() :
     static void addJournalToArray(Journal item){
+        //addItemToHisArray(item,allJournalArray);
         int index =0;
         if (allJournalArray[allJournalArray.length-1] == null) {
             allJournalArray[allJournalArray.length-1] = item;
@@ -195,6 +215,7 @@ public class Driver {
     }
     //Method to add a Media to the Media Array addMediaToArray() :
     static void addMediaToArray(Media item){
+        //addItemToHisArray(item,allMediaArray);
         int index =0;
         if (allMediaArray[allMediaArray.length-1] == null) {
             allMediaArray[allMediaArray.length-1] = item;
@@ -550,7 +571,7 @@ public class Driver {
         System.out.print("Enter the category of document you would like to display (\"Book\", \"Journal\", \"Media\"):");
         String category = input.next();
         if (category.equalsIgnoreCase("Book")){
-            if (allJournalArray==null) {
+            if (allBooksArray==null) {
                 System.out.println("Sorry there's no Book for now.");
             } else{
                 listAllBooks();
