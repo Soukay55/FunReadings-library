@@ -79,14 +79,14 @@ public class Driver {
     {
         displayMenu();
         int choice =0;
-        choice = validIntegerInput(input);
-        validateChoiceMenu(choice,input);
+        choice = validateChoiceMenu(choice,input);
         return choice;
     }
 
     //This functions makes sure that the input of the user for the choice in the menu is valid(Soukay)
     public static int validateChoiceMenu(int choice,Scanner input)
     {
+        choice=validIntegerInput(input);
         while (choice>14||choice<0)
         {
             System.out.print("This is not a valid input please try again >>");
