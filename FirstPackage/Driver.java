@@ -354,7 +354,7 @@ public class Driver {
                 integerInput = input.nextInt();
                 valid=true;
             }else {
-                System.out.print("Invalid position. Please enter an integer:");
+                System.out.print("Invalid value. Please enter an integer:");
                 input.next();
             }
         }while (!valid);
