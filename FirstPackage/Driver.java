@@ -41,11 +41,11 @@ public class Driver {
     {
         System.out.print("Hello welcome to FunReadings Library what would you like to do ?\n1-Display the menu\n2-Run a predefined scenario"
         +"\nPlease enter your choice (1 or 2) >>");
-        int choice = input.nextInt();
+        int choice = validIntegerInput(input);
         while(choice!=1&&choice!=2)
         {
             System.out.print("\nThis is not a valid input please enter a valid choice >> ");
-            choice = input.nextInt();
+            choice = validIntegerInput(input);
         }
         return choice;
     }
@@ -79,7 +79,7 @@ public class Driver {
     {
         displayMenu();
         int choice =0;
-        choice = input.nextInt();
+        choice = validIntegerInput(input);
         validateChoiceMenu(choice,input);
         return choice;
     }
@@ -90,7 +90,7 @@ public class Driver {
         while (choice>14||choice<0)
         {
             System.out.print("This is not a valid input please try again >>");
-                choice = input.nextInt();
+                choice = validIntegerInput(input);
         }
         return choice;
     }
@@ -126,7 +126,7 @@ public class Driver {
         {
             case "book":{
                 System.out.print("\nEnter the book information in the following order: Number of pages, title, author, year of publication >> ");
-                int nbOfPages=input.nextInt();
+                int nbOfPages=validIntegerInput(input);
                 String trash = input.nextLine();
                 title= input.nextLine();
                 author=input.nextLine();
@@ -247,7 +247,7 @@ public class Driver {
         System.out.println("Here are all the items of the library:");
         listAllItems();
         System.out.print("What is the number of the one you want to delete enter here >>");
-        int index = input.nextInt();
+        int index = validIntegerInput(input);
         deleteItemFromAllArrays(index);
     }
 
@@ -348,13 +348,14 @@ public class Driver {
     }
     static int validIntegerInput(Scanner input){
         int integerInput=0;
-        boolean valid = true;
+        boolean valid = false;
         do{
             if(input.hasNextInt()){
                 integerInput = input.nextInt();
+                valid=true;
             }else {
                 System.out.print("Invalid position. Please enter an integer:");
-                valid=false;
+                input.next();
             }
         }while (!valid);
         return integerInput;
@@ -371,7 +372,7 @@ public class Driver {
         while (index<0||index>=allItemsArray.length) {
             System.out.println();
             System.out.print("This item doesn't exist please enter a valid number >>  ");
-            index= input.nextInt();
+            index= validIntegerInput(input);
         }
         System.out.println();
         System.out.println("Here is the item's information: "+allItemsArray[index]);
@@ -385,7 +386,7 @@ public class Driver {
             {
                 System.out.println();
                 System.out.println("This is not a valid choice please try again >> ");
-                choice = input.nextInt();
+                choice = validIntegerInput(input);
             }
             Book book = (Book) allItemsArray[index];
             int indexOfBookInBookArray = 0;
@@ -415,14 +416,14 @@ public class Driver {
                 case 3:
                 {
                     System.out.print("Please enter the new year of publication of the book >> ");
-                    int year = input.nextInt();
+                    int year = validIntegerInput(input);
                     book.setYearPublication(year);
                     break;
                 }
                 case 4:
                 {
                     System.out.print("Please enter the new number of pages of the book >> ");
-                    int number = input.nextInt();
+                    int number = validIntegerInput(input);
                     book.setNumberPages(number);
                     break;
                 }
@@ -436,12 +437,12 @@ public class Driver {
             System.out.println();
             System.out.print("Which attribute do you want to edit ?\n1 >> Title\n2 >> Author\n3 >> Year of publication" +
                     "\n4 >> Volume number\nPlease enter your choice >> ");
-            choice= input.nextInt();
+            choice= validIntegerInput(input);
             while (choice<1||choice>4)
             {
                 System.out.println();
                 System.out.println("This is not a valid choice please try again >> ");
-                choice = input.nextInt();
+                choice = validIntegerInput(input);
             }
             Journal journal = (Journal) allItemsArray[index];
             int indexOfJournalInJournalArray = 0;
@@ -471,14 +472,14 @@ public class Driver {
                 case 3:
                 {
                     System.out.print("Please enter the new year of publication of the journal >> ");
-                    int year = input.nextInt();
+                    int year = validIntegerInput(input);
                     journal.setYearPublication(year);
                     break;
                 }
                 case 4:
                 {
                     System.out.print("Please enter the new number of pages of the journal >> ");
-                    int number = input.nextInt();
+                    int number = validIntegerInput(input);
                     journal.setVolumeNumber(number);
                     break;
                 }
@@ -492,12 +493,12 @@ public class Driver {
             System.out.println();
             System.out.print("Which attribute do you want to edit ?\n1 >> Title\n2 >> Author\n3 >> Year of publication" +
                     "\n4 >> Type of media\nPlease enter your choice >> ");
-            choice= input.nextInt();
+            choice= validIntegerInput(input);
             while (choice<1||choice>4)
             {
                 System.out.println();
                 System.out.println("This is not a valid choice please try again >> ");
-                choice = input.nextInt();
+                choice = validIntegerInput(input);
             }
             Media media = (Media) allItemsArray[index];
             int indexOfMediaInMediaArray = 0;
@@ -527,7 +528,7 @@ public class Driver {
                 case 3:
                 {
                     System.out.print("Please enter the new year of publication of the media >> ");
-                    int year = input.nextInt();
+                    int year = validIntegerInput(input);
                     media.setYearPublication(year);
                     break;
                 }
@@ -703,7 +704,7 @@ public class Driver {
             do {
                 displayAllClients();
                 System.out.println("Enter the number (#) of the client you would like to "+message+":");
-                clientPositionToLeaseTo = input.nextInt();
+                clientPositionToLeaseTo = validIntegerInput(input);
                 if (clientPositionToLeaseTo < 0 || clientPositionToLeaseTo > allClientsArray.length) {
                     System.out.println("Error, try again. Please enter a number between 0" + " and " + (allClientsArray.length - 1));
 
@@ -719,7 +720,7 @@ public class Driver {
             System.out.println("Here are all the items available: ");
             listAllItems();
             System.out.println("Enter the number (#) of the item you would like to lease : ");
-            itemPositionToLease = input.nextInt();
+            itemPositionToLease = validIntegerInput(input);
             if (itemPositionToLease < 0 || itemPositionToLease > allItemsArray.length-1) {
                 System.out.println("Error, try again. Please enter a number between 0" + " and " + (allItemsArray.length - 1));
             }
@@ -802,7 +803,7 @@ public class Driver {
             System.out.print("Which number of item (#) does the client wish to return:");
             int itemPosition = 0;
             do {
-                itemPosition = input.nextInt();
+                itemPosition = validIntegerInput(input);
                 if (itemPosition < 0 || itemPosition > leasedItemsOfClient.length - 1) {
                     System.out.print("\nSSorry this is not a valid input please try again: ");
                 }
@@ -858,7 +859,7 @@ public class Driver {
         int positionBook;
         do{
             System.out.print("Enter the number (#) of the book you would like to copy: ");
-            positionBook = input.nextInt();
+            positionBook = validIntegerInput(input);
             if (positionBook<0||positionBook>allBooksArray.length){
                 System.out.println("Error, try again. Please enter a number between 0"+ " and " + (allBooksArray.length-1));
             }
