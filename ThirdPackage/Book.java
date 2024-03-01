@@ -48,8 +48,8 @@ public class Book extends Library{
     // Copy Constructor:
     public Book(Book otherBook){
         this(otherBook.numberPages, otherBook.name,otherBook.author,otherBook.yearPublication);
-        numberOfBooks++;
-        this.idBook=idBook+numberOfBooks;
+        //numberOfBooks++;
+        this.idBook="B"+numberOfBooks;
     }
 
     //Method toString()

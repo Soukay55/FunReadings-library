@@ -46,8 +46,7 @@ public class Media extends Library{
     // Copy Constructor:
     public Media(Media media){
         this(media.typeMedia, media.name,media.author,media.yearPublication);
-        numberOfMedia++;
-        this.idMedia=idMedia+numberOfMedia;
+        this.idMedia="M"+numberOfMedia;
     }
 
     //Method toString()

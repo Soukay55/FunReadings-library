@@ -46,8 +46,7 @@ public class Journal extends Library{
     // Copy Constructor:
     public Journal(Journal journal){
         this(journal.volumeNumber, journal.name,journal.author,journal.yearPublication);
-        numberOfJournal++;
-        this.idJournal=idJournal+numberOfJournal;
+        this.idJournal="J"+numberOfJournal;
     }
 
     //Method toString()
