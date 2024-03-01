@@ -130,7 +130,7 @@ public class Driver {
                 String trash = input.nextLine();
                 title= input.nextLine();
                 author=input.nextLine();
-                yearOfPublication=input.nextInt();
+                yearOfPublication=validIntegerInput(input);
                 item = new Book(nbOfPages,title,author,yearOfPublication);
                 addBookToArray((Book) item);
                 listAllBooks();
