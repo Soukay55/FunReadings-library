@@ -4,9 +4,7 @@ import ThirdPackage.Library;
 import ThirdPackage.Book;
 import ThirdPackage.Journal;
 import ThirdPackage.Media;
-
 import java.util.Scanner;
-
 public class Driver {
     //Attributes :
     public static Library[] allItemsArray;
@@ -784,13 +782,19 @@ public class Driver {
 
     //Method to display the leased items of all the clients displayLeasedItemsOfAllClients():
     static void displayLeasedItemsOfAllClients(){
-        for(int j=0; j<allClientsArray.length;j++){
-            Library[] leasedItemByClient=allClientsArray[j].getItemsLeasedByClient();
-            System.out.println("Client#" + j);
-            for(int i =0; i<leasedItemByClient.length;i++){
-                System.out.println(leasedItemByClient[i] + "\n");
+        if(allClientsArray[allClientsArray.length-1]==null)
+        {
+            System.out.println("There are no clients");
+        }
+        else {
+            for (int j = 0; j < allClientsArray.length; j++) {
+                Library[] leasedItemByClient = allClientsArray[j].getItemsLeasedByClient();
+                System.out.println("Client#" + j);
+                for (int i = 0; i < leasedItemByClient.length; i++) {
+                    System.out.println(leasedItemByClient[i] + "\n");
+                }
+                System.out.println("\n");
             }
-            System.out.println("\n");
         }
     }
     //Method to return an item of a client returnItemFromClient() :
@@ -837,7 +841,6 @@ public class Driver {
                 tempArray[i]=leasedItemsOfClient[i];
             }
             allClientsArray[clientPosition].setItemsLeasedByClient(tempArray);
-
     }
 
 
@@ -854,22 +857,22 @@ public class Driver {
         System.out.println("The biggest book is the Book #" + biggestBookPosition);
     }
     //Copy books copyBooks() :
-    static void copyBook(Scanner input){
-        listAllBooks();
-        int positionBook;
-        do{
-            System.out.print("Enter the number (#) of the book you would like to copy: ");
-            positionBook = validIntegerInput(input);
-            if (positionBook<0||positionBook>allBooksArray.length){
-                System.out.println("Error, try again. Please enter a number between 0"+ " and " + (allBooksArray.length-1));
+    static Book [] copyBook(Library []items){
+        Book [] copy = new Book[items.length];
+        System.out.println(items.getClass());
+        System.out.println(copy.getClass());
+        if(items.getClass().equals(copy.getClass()))
+        {
+            for (int i=0;i<copy.length;i++)
+            {
+                copy[i] = (Book) items[i];
             }
-        } while (positionBook<0||positionBook>allBooksArray.length);
-        Book newBook = new Book(allBooksArray[positionBook]);
-        addBookToArray(newBook);
-        addItem(newBook);
-        System.out.println("This book was successfully copied!");
-        listAllBooks();
-        listAllItems();
+        }
+        else
+        {
+            System.out.println("This is not an array an array of books");
+        }
+        return copy;
     }
     public static void main(String[] args) {
 
@@ -887,13 +890,14 @@ public class Driver {
             Library[] items = {book,journal,media};
 
 
-            //PROBLEM : THE ID DOES NOT CHANGE ITS ALWAYS WITH A 1
+            //Display all items
+            System.out.println("Here are the 3 items created:");
             System.out.println(book);
             System.out.println(journal);
             System.out.println(media);
-            System.out.println(media1);
 
             //Create 3 users
+            System.out.println("Here are the 3 users created:");
             Client client1 = new Client("Soukayna","514550287","haitamis@hotmail.com");
             Client client2 = new Client("Wissem","51489887","wissem@hotmail.com");
             Client client3 = new Client("Tasneem","4393070000","haitamit@hotmail.com");
