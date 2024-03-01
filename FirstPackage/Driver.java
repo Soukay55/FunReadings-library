@@ -765,17 +765,21 @@ public class Driver {
 
     //Method to display the leased items of a client displayLeasedItemOfClient() :
     static int displayLeasedItemOfClient(Scanner input,String message){
-        int clientPosition;
-        clientPosition=takeNumberOfTheClient(input,message);
-        Library[] leasedItemByClient=allClientsArray[clientPosition].getItemsLeasedByClient();
-        if(leasedItemByClient[leasedItemByClient.length-1]!=null) {
-            for (int i = 0; i < leasedItemByClient.length; i++) {
-                System.out.println("Item#" + i + "\n" + leasedItemByClient[i] + "\n");
-            }
-        }
-        else
+        int clientPosition=0;
+        if(allClientsArray[allClientsArray.length-1]==null)
         {
-            System.out.println("Sorry there are no items leased");
+            System.out.println("There are no clients");
+        }
+        else {
+            clientPosition = takeNumberOfTheClient(input, message);
+            Library[] leasedItemByClient = allClientsArray[clientPosition].getItemsLeasedByClient();
+            if (leasedItemByClient[leasedItemByClient.length - 1] != null) {
+                for (int i = 0; i < leasedItemByClient.length; i++) {
+                    System.out.println("Item#" + i + "\n" + leasedItemByClient[i] + "\n");
+                }
+            } else {
+                System.out.println("Sorry there are no items leased");
+            }
         }
         return clientPosition;
     }
@@ -897,21 +901,23 @@ public class Driver {
             System.out.println(media);
 
             //Create 3 users
-            System.out.println("Here are the 3 users created:");
             Client client1 = new Client("Soukayna","514550287","haitamis@hotmail.com");
             Client client2 = new Client("Wissem","51489887","wissem@hotmail.com");
             Client client3 = new Client("Tasneem","4393070000","haitamit@hotmail.com");
 
 
             //Display the user's information
+            System.out.println("Here are the 3 users created:");
             System.out.println(client1);
             System.out.println(client2);
             System.out.println(client3);
 
             //Test equals() of 2 objects of different classes
+            System.out.println("book=journal?");
             System.out.println(book.equals(journal));
 
             //Test equals() of 2 objects of same class with different values
+            System.out.println("book 1 = book 2?");
             Book book2 = new Book(450,"After","Anna",2001);
             System.out.println(book.equals(book2));
 
