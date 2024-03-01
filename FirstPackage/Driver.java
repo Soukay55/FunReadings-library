@@ -159,23 +159,6 @@ public class Driver {
         }
         return item;
     }
-    //general method
-//    static void addItemToHisArray(Library item,Library []array)
-//    {
-//        int index =0;
-//        if (array[array.length-1] == null) {
-//            array[array.length-1] = item;
-//        }
-//        else
-//        {
-//            Library [] tempArray = new Library[array.length + 1];
-//            for (int i = 0; i < array.length; i++) {
-//                tempArray[i] = array[i];
-//            }
-//            tempArray[tempArray.length - 1] = item;
-//            array= tempArray;
-//        }
-//    }
     //Method to add a Book to the Book Array addBookToArray() :(wissem)
     static void addBookToArray(Book item){
 
@@ -196,7 +179,6 @@ public class Driver {
     }
     //Method to add a Journal to the Journal Array addJournalToArray() :
     static void addJournalToArray(Journal item){
-        //addItemToHisArray(item,allJournalArray);
         int index =0;
         if (allJournalArray[allJournalArray.length-1] == null) {
             allJournalArray[allJournalArray.length-1] = item;
@@ -213,7 +195,6 @@ public class Driver {
     }
     //Method to add a Media to the Media Array addMediaToArray() :
     static void addMediaToArray(Media item){
-        //addItemToHisArray(item,allMediaArray);
         int index =0;
         if (allMediaArray[allMediaArray.length-1] == null) {
             allMediaArray[allMediaArray.length-1] = item;
@@ -242,12 +223,12 @@ public class Driver {
     }
     //Method Delete Item deleteItem() : (Soukay)
     static void deleteItem(Scanner input) {
-        listAllItems();
         if(allItemsArray[allItemsArray.length-1]==null)
         {
             System.out.println("There are no items");
         }
         else {
+            listAllItems();
             System.out.print("What is the number of the one you want to delete enter here >>");
             int index = validIntegerInput(input);
             deleteItemFromAllArrays(index);
@@ -927,6 +908,7 @@ public class Driver {
             System.out.println(book.equals(book2));
 
             //Test equals() of 2 objects of same class with same values
+            System.out.println("journal 1 = journal 2? Test equals() of 2 objects of same class with same values );
             Journal journal2 = new Journal(25,"The New York Times","Soukay",2024);
             System.out.println(journal.equals(journal2));
 
