@@ -96,7 +96,7 @@ public class Driver {
     }
 
     //Method Add Item addItem() :(Soukay)
-    public static void addItem(Scanner input,Library item){
+    public static void addItem(Library item){
         int index =0;
             if (allItemsArray[allItemsArray.length-1] == null) {
                 allItemsArray[allItemsArray.length-1] = item;
@@ -720,7 +720,7 @@ public class Driver {
             listAllItems();
             System.out.println("Enter the number (#) of the item you would like to lease : ");
             itemPositionToLease = input.nextInt();
-            if (itemPositionToLease < 0 || itemPositionToLease > allItemsArray.length) {
+            if (itemPositionToLease < 0 || itemPositionToLease > allItemsArray.length-1) {
                 System.out.println("Error, try again. Please enter a number between 0" + " and " + (allItemsArray.length - 1));
             }
         } while (itemPositionToLease < 0 || itemPositionToLease > allItemsArray.length-1);
@@ -749,7 +749,7 @@ public class Driver {
                 for (int i = 0; i < leasedItemByClient.length; i++) {
                     newLeasedItemByClient[i] = leasedItemByClient[i];
                 }
-                newLeasedItemByClient[newLeasedItemByClient.length - 1] = allItemsArray[clientPositionToLeaseTo];
+                newLeasedItemByClient[newLeasedItemByClient.length - 1] = allItemsArray[itemPositionToLease];
                 leasedItemByClient = newLeasedItemByClient;
                 allClientsArray[clientPositionToLeaseTo].setItemsLeasedByClient(leasedItemByClient);
                 deleteItemFromAllArrays(itemPositionToLease);
@@ -765,13 +765,20 @@ public class Driver {
     }
 
     //Method to display the leased items of a client displayLeasedItemOfClient() :
-    static void displayLeasedItemOfClient(Scanner input,String message){
+    static int displayLeasedItemOfClient(Scanner input,String message){
         int clientPosition;
         clientPosition=takeNumberOfTheClient(input,message);
         Library[] leasedItemByClient=allClientsArray[clientPosition].getItemsLeasedByClient();
-        for(int i =0; i<leasedItemByClient.length;i++){
-            System.out.println(leasedItemByClient[i] + "\n");
+        if(leasedItemByClient[leasedItemByClient.length-1]!=null) {
+            for (int i = 0; i < leasedItemByClient.length; i++) {
+                System.out.println("Item#" + i + "\n" + leasedItemByClient[i] + "\n");
+            }
         }
+        else
+        {
+            System.out.println("Sorry there are no items leased");
+        }
+        return clientPosition;
     }
 
     //Method to display the leased items of all the clients displayLeasedItemsOfAllClients():
@@ -788,6 +795,47 @@ public class Driver {
     //Method to return an item of a client returnItemFromClient() :
     static void returnItemFromClient(Scanner input)
     {
+        int clientPosition = displayLeasedItemOfClient(input,"return an item from");
+        Library[] leasedItemsOfClient = allClientsArray[clientPosition].getItemsLeasedByClient();
+
+
+            System.out.print("Which number of item (#) does the client wish to return:");
+            int itemPosition = 0;
+            do {
+                itemPosition = input.nextInt();
+                if (itemPosition < 0 || itemPosition > leasedItemsOfClient.length - 1) {
+                    System.out.print("\nSSorry this is not a valid input please try again: ");
+                }
+            } while (itemPosition < 0 || itemPosition > leasedItemsOfClient.length - 1);
+
+            addItem(leasedItemsOfClient[itemPosition]);//adds the item to allItemsArray
+
+            //adding the item to his respective array
+            if(leasedItemsOfClient[itemPosition].getClass().equals(Book.class))
+            {
+                addBookToArray((Book)leasedItemsOfClient[itemPosition]);
+            }
+            else if (leasedItemsOfClient[itemPosition].getClass().equals(Journal.class))
+            {
+                addJournalToArray((Journal) leasedItemsOfClient[itemPosition]);
+            }
+            else
+            {
+                addMediaToArray((Media)leasedItemsOfClient[itemPosition]);
+            }
+
+
+            //delete the item from the leased items of the client
+            for (int i=itemPosition;i<leasedItemsOfClient.length-1;i++)
+            {
+                leasedItemsOfClient[i]=leasedItemsOfClient[i+1];
+            }
+            Library[] tempArray = new Library[leasedItemsOfClient.length-1];
+            for (int i=0;i<tempArray.length;i++)
+            {
+                tempArray[i]=leasedItemsOfClient[i];
+            }
+            allClientsArray[clientPosition].setItemsLeasedByClient(tempArray);
 
     }
 
@@ -817,7 +865,7 @@ public class Driver {
         } while (positionBook<0||positionBook>allBooksArray.length);
         Book newBook = new Book(allBooksArray[positionBook]);
         addBookToArray(newBook);
-        addItem(input, newBook);
+        addItem(newBook);
         System.out.println("This book was successfully copied!");
         listAllBooks();
         listAllItems();
@@ -892,7 +940,7 @@ public class Driver {
                 {
                     case 1: {
                         Library item = askTheUserForTheItemHeWantsToAdd(input);
-                        addItem(input,item);
+                        addItem(item);
                         listAllItems();
                         break;
                     }
@@ -941,11 +989,12 @@ public class Driver {
                     }
                     case 10:
                     {
+                        returnItemFromClient(input);
                         break;
                     }
                     case 11:
                     {
-                        displayLeasedItemOfClient(input,"display");
+                        displayLeasedItemOfClient(input,"see his leased items");
                         break;
                     }
                     case 12:
