@@ -807,7 +807,23 @@ public class Driver {
         System.out.println("The biggest book is the Book #" + biggestBookPosition);
     }
     //Copy books copyBooks() :
-
+    static void copyBook(Scanner input){
+        listAllBooks();
+        int positionBook;
+        do{
+            System.out.print("Enter the number (#) of the book you would like to copy: ");
+            positionBook = input.nextInt();
+            if (positionBook<0||positionBook>allBooksArray.length){
+                System.out.println("Error, try again. Please enter a number between 0"+ " and " + (allBooksArray.length-1));
+            }
+        } while (positionBook<0||positionBook>allBooksArray.length);
+        Book newBook = new Book(allBooksArray[positionBook]);
+        addBookToArray(newBook);
+        addItem(input, newBook);
+        System.out.println("This book was successfully copied!");
+        listAllBooks();
+        listAllItems();
+    }
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
