@@ -699,33 +699,50 @@ public class Driver {
 
     }
 
+    static int takeNumberOfTheClient(Scanner input,String message)
+    {
+        int clientPositionToLeaseTo = 0;
+            do {
+                displayAllClients();
+                System.out.println("Enter the number (#) of the client you would like to "+message+":");
+                clientPositionToLeaseTo = input.nextInt();
+                if (clientPositionToLeaseTo < 0 || clientPositionToLeaseTo > allClientsArray.length) {
+                    System.out.println("Error, try again. Please enter a number between 0" + " and " + (allClientsArray.length - 1));
+
+                }
+            }while (clientPositionToLeaseTo < 0 || clientPositionToLeaseTo > allClientsArray.length) ;
+        return clientPositionToLeaseTo;
+    }
+
+    static int takeNumberOfItemToLease(Scanner input)
+    {
+        int itemPositionToLease=0;
+        do {
+            System.out.println("Here are all the items available: ");
+            listAllItems();
+            System.out.println("Enter the number (#) of the item you would like to lease : ");
+            itemPositionToLease = input.nextInt();
+            if (itemPositionToLease < 0 || itemPositionToLease > allItemsArray.length) {
+                System.out.println("Error, try again. Please enter a number between 0" + " and " + (allItemsArray.length - 1));
+            }
+        } while (itemPositionToLease < 0 || itemPositionToLease > allItemsArray.length-1);
+        return itemPositionToLease;
+    }
+
     //Method to lease an item to client leaseItemToClient() :
     static void leaseItemToClient(Scanner input) {
         int clientPositionToLeaseTo;
         if (allItemsArray[allItemsArray.length-1] != null && allClientsArray[allClientsArray.length-1] != null) {
-            do {
-                System.out.println("Here are all the clients: ");
-                displayAllClients();
-                System.out.println("Enter the number (#) of the client you would like to lease an item to:");
-                clientPositionToLeaseTo = input.nextInt();
-                if (clientPositionToLeaseTo < 0 || clientPositionToLeaseTo > allClientsArray.length) {
-                    System.out.println("Error, try again. Please enter a number between 0" + " and " + (allClientsArray.length - 1));
-                }
-            } while (clientPositionToLeaseTo < 0 || clientPositionToLeaseTo > allClientsArray.length);
+
+            clientPositionToLeaseTo=takeNumberOfTheClient(input,"lease an item to");
+
             int itemPositionToLease;
-            do {
-                System.out.println("Here are all the items available: ");
-                listAllItems();
-                System.out.println("Enter the number (#) of the item you would like to lease : ");
-                itemPositionToLease = input.nextInt();
-                if (itemPositionToLease < 0 || itemPositionToLease > allItemsArray.length) {
-                    System.out.println("Error, try again. Please enter a number between 0" + " and " + (allItemsArray.length - 1));
-                }
-            } while (itemPositionToLease < 0 || itemPositionToLease > allItemsArray.length);
+           itemPositionToLease=takeNumberOfItemToLease(input);
+
             Library[] leasedItemByClient = allClientsArray[clientPositionToLeaseTo].getItemsLeasedByClient();
             if(leasedItemByClient[leasedItemByClient.length-1]==null)
             {
-                leasedItemByClient[leasedItemByClient.length-1]=allItemsArray[clientPositionToLeaseTo];
+                leasedItemByClient[leasedItemByClient.length-1]=allItemsArray[itemPositionToLease];
                 deleteItemFromAllArrays(itemPositionToLease);
                 System.out.println("The item #"+itemPositionToLease+" has been leased successfully to client #"+clientPositionToLeaseTo);
             }
@@ -750,24 +767,17 @@ public class Driver {
     }
 
     //Method to display the leased items of a client displayLeasedItemOfClient() :
-    static void displayLeasedItemOfClient(Scanner input){
+    static void displayLeasedItemOfClient(Scanner input,String message){
         int clientPosition;
-        do{
-            System.out.println("Enter the number of the client you would like to display their leased items :");
-            clientPosition=input.nextInt();
-            if(clientPosition < 0 || clientPosition > allClientsArray.length){
-                System.out.println("Error, try again. Please enter a number between 0"+ " and " + (allClientsArray.length-1));
-            }
-        }while(clientPosition < 0 || clientPosition > allClientsArray.length);
+        clientPosition=takeNumberOfTheClient(input,message);
         Library[] leasedItemByClient=allClientsArray[clientPosition].getItemsLeasedByClient();
         for(int i =0; i<leasedItemByClient.length;i++){
             System.out.println(leasedItemByClient[i] + "\n");
         }
-        System.out.println("All the leased items were successfully displayed.");
     }
 
     //Method to display the leased items of all the clients displayLeasedItemsOfAllClients():
-    static void displayLeasedItemsOfAllClients(Scanner input){
+    static void displayLeasedItemsOfAllClients(){
         for(int j=0; j<allClientsArray.length;j++){
             Library[] leasedItemByClient=allClientsArray[j].getItemsLeasedByClient();
             System.out.println("Client#" + j);
@@ -778,8 +788,11 @@ public class Driver {
         }
     }
     //Method to return an item of a client returnItemFromClient() :
+    static void returnItemFromClient(Scanner input)
+    {
 
-    //Method to display the returned items of all the clients displayReturnedItemsOfAllClients() :
+    }
+
 
     //Display the biggest book getBiggestBook() :
     static void getBiggestBook(){
@@ -918,12 +931,12 @@ public class Driver {
                     }
                     case 11:
                     {
-                        displayLeasedItemOfClient(input);
+                        displayLeasedItemOfClient(input,"display");
                         break;
                     }
                     case 12:
                     {
-                        displayLeasedItemsOfAllClients(input);
+                        displayLeasedItemsOfAllClients();
                         break;
                     }
                     case 13:
@@ -933,6 +946,7 @@ public class Driver {
                     }
                     case 14:
                     {
+
                         break;
                     }
                 }
