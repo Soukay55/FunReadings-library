@@ -346,16 +346,29 @@ public class Driver {
         allMediaArray = tempArray;
         listAllMedia();
     }
+    static int validIntegerInput(Scanner input){
+        int integerInput=0;
+        boolean valid = true;
+        do{
+            if(input.hasNextInt()){
+                integerInput = input.nextInt();
+            }else {
+                System.out.print("Invalid position. Please enter an integer:");
+                valid=false;
+            }
+        }while (!valid);
+        return integerInput;
+    }
 
     //Method to change information of an Item changeInformationItem() :
     static void changeInformationItem(Scanner input)
     {
         listAllItems();
         System.out.print("Please enter the number (#) of the item you want to edit >>  ");
-        int index = input.nextInt();
+        int index= validIntegerInput(input);
+
         int choice =0;
-        while (index<0||index>=allItemsArray.length)
-        {
+        while (index<0||index>=allItemsArray.length) {
             System.out.println();
             System.out.print("This item doesn't exist please enter a valid number >>  ");
             index= input.nextInt();
@@ -367,7 +380,7 @@ public class Driver {
             System.out.println();
             System.out.print("Which attribute do you want to edit ?\n1 >> Title\n2 >> Author\n3 >> Year of publication" +
                     "\n4 >> Number of pages\nPlease enter your choice >> ");
-            choice= input.nextInt();
+            choice=validIntegerInput(input);
             while (choice<1||choice>4)
             {
                 System.out.println();
@@ -634,14 +647,7 @@ public class Driver {
     }
     //Method to edit a client editClient() : (Wissem)
     static void editClient(Scanner input){
-        int positionClient;
-        do{
-            System.out.print("Enter the number (#) of the client: ");
-            positionClient = input.nextInt();
-            if (positionClient<0||positionClient>allClientsArray.length){
-                System.out.println("Error, try again. Please enter a number between 0"+ " and " + (allClientsArray.length-1));
-            }
-        } while (positionClient<0||positionClient>allClientsArray.length);
+        int positionClient=takeNumberOfTheClient(input,"edit");
 
         System.out.print("What do you want to modify : \"Name\", \"Phone Number\" or \"Email\"? : ");
         String clientModification = input.next();
@@ -673,16 +679,8 @@ public class Driver {
     }
     //Method to delete a client deleteClient() :
     static void deleteClient(Scanner input){
-        int deleteClientPosition;
         if(allClientsArray[allClientsArray.length-1] !=null){
-            do{
-                displayAllClients();
-                System.out.println("Enter the number (#) of the client you would like to remove:");
-                deleteClientPosition=input.nextInt();
-                if (deleteClientPosition<0||deleteClientPosition>allClientsArray.length){
-                    System.out.println("Error, try again. Please enter a number between 0"+ " and " + (allClientsArray.length-1));
-                }
-            }while(deleteClientPosition<0||deleteClientPosition>allClientsArray.length);
+            int deleteClientPosition=takeNumberOfTheClient(input,"remove");
             Client[] tempAllClientsArray = new Client[allClientsArray.length-1];
             for (int i =0; i<allClientsArray.length-1;i++){
                 if(i<deleteClientPosition){
