@@ -242,11 +242,16 @@ public class Driver {
     }
     //Method Delete Item deleteItem() : (Soukay)
     static void deleteItem(Scanner input) {
-        System.out.println("Here are all the items of the library:");
         listAllItems();
-        System.out.print("What is the number of the one you want to delete enter here >>");
-        int index = validIntegerInput(input);
-        deleteItemFromAllArrays(index);
+        if(allItemsArray[allItemsArray.length-1]==null)
+        {
+            System.out.println("There are no items");
+        }
+        else {
+            System.out.print("What is the number of the one you want to delete enter here >>");
+            int index = validIntegerInput(input);
+            deleteItemFromAllArrays(index);
+        }
     }
 
     static void deleteItemFromAllArrays(int index)
@@ -274,7 +279,7 @@ public class Driver {
             allItemsArray = tempArray;
         }
         else {
-            System.out.println("noooooooooooooo");
+            System.out.println("This is not a valid input");
         }
     }
 
@@ -913,11 +918,11 @@ public class Driver {
             System.out.println(client3);
 
             //Test equals() of 2 objects of different classes
-            System.out.println("book=journal?");
+            System.out.println("book=journal? Test equals() of 2 objects of different classes");
             System.out.println(book.equals(journal));
 
             //Test equals() of 2 objects of same class with different values
-            System.out.println("book 1 = book 2?");
+            System.out.println("book 1 = book 2? Test equals() of 2 objects of same class with different values");
             Book book2 = new Book(450,"After","Anna",2001);
             System.out.println(book.equals(book2));
 
