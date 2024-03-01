@@ -139,11 +139,11 @@ public class Driver {
             case "journal":
             {
                 System.out.print("\nEnter the Journal information in the following order: Volume number, title, author, year of publication >> ");
-                int volumeNumber=input.nextInt();
+                int volumeNumber=validIntegerInput(input);
                 String trash = input.nextLine();
                 title= input.nextLine();
                 author=input.nextLine();
-                yearOfPublication=input.nextInt();
+                yearOfPublication=validIntegerInput(input);
                 item = new Journal(volumeNumber,title,author,yearOfPublication);
                 addJournalToArray((Journal) item);
                 break;
@@ -153,7 +153,7 @@ public class Driver {
                 String typeMedia=input.nextLine();
                 title= input.nextLine();
                 author=input.nextLine();
-                yearOfPublication=input.nextInt();
+                yearOfPublication=validIntegerInput(input);
                 item = new Media(typeMedia,title,author,yearOfPublication);
                 addMediaToArray((Media) item);
                 break;
