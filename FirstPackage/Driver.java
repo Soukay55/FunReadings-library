@@ -6,47 +6,100 @@ import ThirdPackage.Journal;
 import ThirdPackage.Media;
 import java.util.Scanner;
 public class Driver {
-    //Attributes :
+    //------------------------------------------------------------------------------------------------
+    //ATTRIBUTES :
     public static Library[] allItemsArray;
     public static Book[] allBooksArray;
     public static Journal[] allJournalArray;
     public static Media[] allMediaArray;
-
     public static Client[] allClientsArray;
+    //------------------------------------------------------------------------------------------------
+    //ARRAYS
 
-    static void createAllItemsArray()
-    {
-        allItemsArray = new Library[1];
-    }
-
-    static void createAllBooksArray()
-    {
-        allBooksArray = new Book[1];
-    }
-
+    //Initialize the arrays :
+    static void createAllItemsArray() {allItemsArray = new Library[1];}
+    static void createAllBooksArray() {allBooksArray = new Book[1];}
     static void createAllJournalArray() {allJournalArray = new Journal[1];}
+    static void createAllMediaArray() {allMediaArray = new Media[1];}
+    static void createAllClientsArray() {allClientsArray = new Client[1];}
 
-    static void createAllMediaArray()
-    {
-        allMediaArray = new Media[1];
-    }
-    static void createAllClientsArray()
-    {
-        allClientsArray = new Client[1];
-    }
-
-    static void displayArray(Library[]item)
-    {
+    //Display an array (Book, Media, journal)
+    static void displayArray(Library[]item) {
         for (int i=0;i<item.length;i++)
         {
             System.out.println(item[i]);
         }
     }
-    //Method that asks the user if he wants the menu or a predefined Scenario menuOrPredefinedScenario(Scanner input):
+    //------------------------------------------------------------------------------------------------
+    //VERIFICATIONS
+
+    //Verify that the user's input is an integer:
+    static int validIntegerInput(Scanner input){
+        int integerInput=0;
+        boolean valid = false;
+        do{
+            if(input.hasNextInt()){
+                integerInput = input.nextInt();
+                valid=true;
+            }else {
+                System.out.print("Invalid value. Please enter an integer:");
+                input.next();
+            }
+        }while (!valid);
+        return integerInput;
+    }
+
+    //Method to take the user's desired client position and verify its validity :
+    static int takeNumberOfTheClient(Scanner input,String message)
+    {
+        int clientPositionToLeaseTo = 0;
+        do {
+            displayAllClients();
+            System.out.println("Enter the number (#) of the client you would like to "+message+":");
+            clientPositionToLeaseTo = validIntegerInput(input);
+            if (clientPositionToLeaseTo < 0 || clientPositionToLeaseTo > allClientsArray.length) {
+                System.out.println("Error, try again. Please enter a number between 0" + " and " + (allClientsArray.length - 1));
+
+            }
+        }while (clientPositionToLeaseTo < 0 || clientPositionToLeaseTo > allClientsArray.length) ;
+        return clientPositionToLeaseTo;
+    }
+
+    //Method to validate the type of item entered by the user :
+    static String takeValidChoiceOfTypeOfItem(Scanner input)
+    {
+        String choice = input.next();
+        while (choice.equals("book")==false&&choice.equals("journal")==false&&choice.equals("media")==false)
+        {
+            System.out.print("This is not a valid type please choose between book, journal or media >> ");
+            choice = input.next();
+        }
+        return choice;
+    }
+
+    //Method to take the user's desired item to lease position and verify its validity :
+    static int takeNumberOfItemToLease(Scanner input)
+    {
+        int itemPositionToLease=0;
+        do {
+            System.out.println("Here are all the items available: ");
+            listAllItems();
+            System.out.println("Enter the number (#) of the item you would like to lease : ");
+            itemPositionToLease = validIntegerInput(input);
+            if (itemPositionToLease < 0 || itemPositionToLease > allItemsArray.length-1) {
+                System.out.println("Error, try again. Please enter a number between 0" + " and " + (allItemsArray.length - 1));
+            }
+        } while (itemPositionToLease < 0 || itemPositionToLease > allItemsArray.length-1);
+        return itemPositionToLease;
+    }
+    //------------------------------------------------------------------------------------------------
+    //MENU
+
+    //Method to ask the user if he wants the menu or a predefined Scenario :
     public static int menuOrPredefinedScenario(Scanner input)
     {
         System.out.print("Hello welcome to FunReadings Library what would you like to do ?\n1-Display the menu\n2-Run a predefined scenario"
-        +"\nPlease enter your choice (1 or 2) >>");
+                +"\nPlease enter your choice (1 or 2) >>");
         int choice = validIntegerInput(input);
         while(choice!=1&&choice!=2)
         {
@@ -55,8 +108,7 @@ public class Driver {
         }
         return choice;
     }
-
-    //Method to display main menu displayMenu() :
+    //Method to display main menu (Choice 1):
     public static void displayMenu() {
         System.out.print("| What would you like to do?\n"
                 + "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n"
@@ -78,9 +130,7 @@ public class Driver {
                 + "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n"
                 + "\n Please enter your choice and press <Enter>: ");
     }
-
-
-    //Gets the choice of action listed in the menu that the user wants to do (Soukay)
+    //Method to collect the user's choice of action listed in the main menu :
     public static int getChoiceMenu(Scanner input)
     {
         displayMenu();
@@ -88,22 +138,24 @@ public class Driver {
         choice = validateChoiceMenu(choice,input);
         return choice;
     }
-
-    //This functions makes sure that the input of the user for the choice in the menu is valid(Soukay)
+    //Method to make sure that the user's input for the menu's choice is valid in the range 0-14 :
     public static int validateChoiceMenu(int choice,Scanner input)
     {
         choice=validIntegerInput(input);
         while (choice>14||choice<0)
         {
             System.out.print("This is not a valid input please try again >>");
-                choice = validIntegerInput(input);
+            choice = validIntegerInput(input);
         }
         return choice;
     }
+    //------------------------------------------------------------------------------------------------
+    //MENU'S OPTIONS :
+    //------------------------------------------------------------------------------------------------
+    //OPTION 1 : 1- Add an item
 
-    //Method Add Item addItem() :(Soukay)
+    //Method to add an item :
     public static void addItem(Library item){
-        int index =0;
             if (allItemsArray[allItemsArray.length-1] == null) {
                 allItemsArray[allItemsArray.length-1] = item;
             }
@@ -116,10 +168,9 @@ public class Driver {
                 tempArray[tempArray.length - 1] = item;
                 allItemsArray = tempArray;
             }
-
     }
 
-    //(Soukay)
+    //Method to ask what type of item the user would like to add
     static Library askTheUserForTheItemHeWantsToAdd(Scanner input)
     {
         System.out.print("What type of item do you want to add (book, journal or media) >>");
@@ -153,7 +204,7 @@ public class Driver {
                 item = new Journal(volumeNumber,title,author,yearOfPublication);
                 addJournalToArray((Journal) item);
                 break;
-                }
+            }
             case "media":{System.out.print("\nEnter the Media information in the following order: Type of media, title, author, year of publication >> ");
                 String trash = input.nextLine();
                 String typeMedia=input.nextLine();
@@ -167,11 +218,8 @@ public class Driver {
         }
         return item;
     }
-    //Method to add a Book to the Book Array addBookToArray() :(wissem)
+    //Method to add a Book to the Book Array addBookToArray()
     static void addBookToArray(Book item){
-
-        //addItemToHisArray(item,allBooksArray);
-        int index =0;
         if (allBooksArray[allBooksArray.length-1] == null) {
             allBooksArray[allBooksArray.length-1] = item;
         }
@@ -185,9 +233,9 @@ public class Driver {
             allBooksArray = tempArray;
         }
     }
+
     //Method to add a Journal to the Journal Array addJournalToArray() :
     static void addJournalToArray(Journal item){
-        int index =0;
         if (allJournalArray[allJournalArray.length-1] == null) {
             allJournalArray[allJournalArray.length-1] = item;
         }
@@ -201,6 +249,7 @@ public class Driver {
             allJournalArray = tempArray;
         }
     }
+
     //Method to add a Media to the Media Array addMediaToArray() :
     static void addMediaToArray(Media item){
         int index =0;
@@ -216,20 +265,11 @@ public class Driver {
             tempArray[tempArray.length - 1] = item;
             allMediaArray = tempArray;
         }
+    }
+    //------------------------------------------------------------------------------------------------
+    //CHOICE 2 : 2- Delete an item
 
-    }
-    //This functions makes sure that the input of the user for the choice of the type of item he wants to add (SOukay)
-    static String takeValidChoiceOfTypeOfItem(Scanner input)
-    {
-        String choice = input.next();
-        while (choice.equals("book")==false&&choice.equals("journal")==false&&choice.equals("media")==false)
-        {
-            System.out.print("This is not a valid type please choose between book, journal or media >> ");
-            choice = input.next();
-        }
-        return choice;
-    }
-    //Method Delete Item deleteItem() : (Soukay)
+    //Method to delete an item
     static void deleteItem(Scanner input) {
         if(allItemsArray[allItemsArray.length-1]==null)
         {
@@ -243,6 +283,7 @@ public class Driver {
         }
     }
 
+    //Method to delete from the allItemsArray and the specific item's type array :
     static void deleteItemFromAllArrays(int index)
     {
         if(allItemsArray[index].getClass().equals(Book.class))
@@ -272,11 +313,9 @@ public class Driver {
         }
     }
 
-
-    static void deleteBook(int index)
-    {
+    //Method to delete a Book :
+    static void deleteBook(int index) {
         int indexBook=0;
-
         for (int i = 0;i<allBooksArray.length;i++)
         {
             if (allBooksArray[i].equals(allItemsArray[index]))
@@ -295,6 +334,7 @@ public class Driver {
         listAllBooks();
     }
 
+    //Method to delete a Journal :
     static void deleteJournal(int index)
     {
         int indexBook=0;
@@ -317,6 +357,7 @@ public class Driver {
         listAllJournals();
     }
 
+    //Method to delete a Media :
     static void deleteMedia(int index)
     {
         int indexBook=0;
@@ -338,22 +379,11 @@ public class Driver {
         allMediaArray = tempArray;
         listAllMedia();
     }
-    static int validIntegerInput(Scanner input){
-        int integerInput=0;
-        boolean valid = false;
-        do{
-            if(input.hasNextInt()){
-                integerInput = input.nextInt();
-                valid=true;
-            }else {
-                System.out.print("Invalid value. Please enter an integer:");
-                input.next();
-            }
-        }while (!valid);
-        return integerInput;
-    }
 
-    //Method to change information of an Item changeInformationItem() :
+    //------------------------------------------------------------------------------------------------
+    //CHOICE 3 : 3- Change information of an item
+
+    //Method to change information of an item :
     static void changeInformationItem(Scanner input)
     {
         listAllItems();
@@ -537,8 +567,36 @@ public class Driver {
 
         }
     }
+    //------------------------------------------------------------------------------------------------
+    //CHOICE 4 : 4- List all items in a specific category
 
-    //Method to list all the books listAllBooks() : (Wissem)
+    //Methods to list a specific category :
+    static void listSpecificCategory(Scanner input) {
+        System.out.print("Enter the category of document you would like to display (\"Book\", \"Journal\", \"Media\"):");
+        String category = input.next();
+        if (category.equalsIgnoreCase("Book")){
+            if (allBooksArray[allBooksArray.length-1]==null) {
+                System.out.println("Sorry there's no Book for now.");
+            } else{
+                listAllBooks();
+            }
+
+        }else if (category.equalsIgnoreCase("Journal")) {
+            if (allJournalArray[allJournalArray.length-1]==null) {
+                System.out.println("Sorry there's no Journal for now.");
+            } else{
+                listAllJournals();
+            }
+        }else if (category.equalsIgnoreCase("Media")) {
+            if (allMediaArray[allMediaArray.length-1]==null) {
+                System.out.println("Sorry there's no media for now.");
+            } else{
+                listAllMedia();
+            }
+        }
+    }
+
+    //Method to list all the books of the book array :
     static void listAllBooks(){
         if(allItemsArray!=null) {
             System.out.println("Here's all the Books:");
@@ -550,7 +608,7 @@ public class Driver {
         }
     }
 
-    //Method to list all the journals listAllJournal() : (Wissem)
+    //Method to list all the journals of the journal array :
     static void listAllJournals(){
         if(allItemsArray!=null) {
             System.out.println("Here's all the Journals:");
@@ -561,7 +619,8 @@ public class Driver {
             System.out.println("There's no journal yet.");
         }
     }
-    //Method to list all the medias listAllMedia() : (Wissem)
+
+    //Method to list all the medias of the media array:
     static void listAllMedia(){
         if(allItemsArray!=null) {
             System.out.println("Here's all the Medias:");
@@ -572,32 +631,10 @@ public class Driver {
             System.out.println("There's no media yet.");
         }
     }
-    //Methods to list a specific category listSpecificCategory() : (Wissem)
-    static void listSpecificCategory(Scanner input) {
-        System.out.print("Enter the category of document you would like to display (\"Book\", \"Journal\", \"Media\"):");
-        String category = input.next();
-        if (category.equalsIgnoreCase("Book")){
-            if (allBooksArray==null) {
-                System.out.println("Sorry there's no Book for now.");
-            } else{
-                listAllBooks();
-            }
+    //------------------------------------------------------------------------------------------------
+    //CHOICE 5 : 5- List all items
 
-        }else if (category.equalsIgnoreCase("Journal")) {
-            if (allJournalArray==null) {
-                System.out.println("Sorry there's no Journal for now.");
-            } else{
-                listAllJournals();
-            }
-        }else if (category.equalsIgnoreCase("Media")) {
-            if (allMediaArray==null) {
-                System.out.println("Sorry there's no media for now.");
-            } else{
-                listAllMedia();
-            }
-        }
-    }
-    //Method to list all items of the array library (soukay)
+    //Method to list all items of the array library :
     static void listAllItems() {
         if(allItemsArray[allItemsArray.length-1]==null) {
             System.out.println("There's no item yet.");
@@ -608,15 +645,11 @@ public class Driver {
             }
         }
     }
-    //Method display all the clients displayAllClients(): (Wissem)
-    static void displayAllClients(){
-        System.out.println("Here's all your clients :");
-        for (int i=0; i<allClientsArray.length; i++){
-            System.out.println("Client#"+i+"\n"+allClientsArray[i]+ "\n");
-        }
-    }
 
-    //Method to add a client addClient() (wissem):
+    //------------------------------------------------------------------------------------------------
+    //CHOICE 6 : 6- Add a client
+
+    //Method to add a client :
     static void addClient(Scanner input){
         System.out.print("Enter the client information in the following order: Client name, Phone-number, E-mail >> ");
         String trash = input.nextLine();
@@ -638,39 +671,10 @@ public class Driver {
         }
         System.out.println("Your client was successfully added.");
     }
-    //Method to edit a client editClient() : (Wissem)
-    static void editClient(Scanner input){
-        int positionClient=takeNumberOfTheClient(input,"edit");
+    //------------------------------------------------------------------------------------------------
+    //CHOICE 7 : 7- Remove a client
 
-        System.out.print("What do you want to modify : \"Name\", \"Phone Number\" or \"Email\"? : ");
-        String clientModification = input.next();
-        if(clientModification.equalsIgnoreCase("Name")){
-            System.out.print("Enter a new name: ");
-            String newName = input.next();
-            allClientsArray[positionClient].setNameClient(newName);
-            System.out.println("This client's name was successfully modified");
-            displayClientInfo(positionClient);
-        } else if (clientModification.equalsIgnoreCase("Phone number")) {
-            System.out.print("Enter a new phone number: ");
-            String newPhoneNumber = input.next();
-            allClientsArray[positionClient].setPhoneNumberClient(newPhoneNumber);
-            System.out.println("This client's phone number was successfully modified");
-            displayClientInfo(positionClient);
-        } else if (clientModification.equalsIgnoreCase("Email")) {
-            System.out.print("Enter a new name: ");
-            String newEmail = input.next();
-            allClientsArray[positionClient].setEmailClient(newEmail);
-            System.out.println("This client's e-mail was successfully modified");
-            displayClientInfo(positionClient);
-        }
-
-    }
-    //Method to display a specific client's info displayClientInfo(): (wissem)
-    static void displayClientInfo(int i){
-        System.out.println("Here are the information of client #" + i + " :");
-        System.out.println(allClientsArray[i]);
-    }
-    //Method to delete a client deleteClient() :
+    //Method to remove a client :
     static void deleteClient(Scanner input){
         if(allClientsArray[allClientsArray.length-1] !=null){
             int deleteClientPosition=takeNumberOfTheClient(input,"remove");
@@ -687,40 +691,58 @@ public class Driver {
         }else{
             System.out.println("There's no client yet.");
         }
-
     }
 
-    static int takeNumberOfTheClient(Scanner input,String message)
-    {
-        int clientPositionToLeaseTo = 0;
-            do {
-                displayAllClients();
-                System.out.println("Enter the number (#) of the client you would like to "+message+":");
-                clientPositionToLeaseTo = validIntegerInput(input);
-                if (clientPositionToLeaseTo < 0 || clientPositionToLeaseTo > allClientsArray.length) {
-                    System.out.println("Error, try again. Please enter a number between 0" + " and " + (allClientsArray.length - 1));
-
-                }
-            }while (clientPositionToLeaseTo < 0 || clientPositionToLeaseTo > allClientsArray.length) ;
-        return clientPositionToLeaseTo;
+    //Method display all the clients :
+    static void displayAllClients(){
+        System.out.println("Here's all your clients :");
+        for (int i=0; i<allClientsArray.length; i++){
+            System.out.println("Client#"+i+"\n"+allClientsArray[i]+ "\n");
+        }
     }
+    //------------------------------------------------------------------------------------------------
+    //CHOICE 8 : 8- Edit a client
 
-    static int takeNumberOfItemToLease(Scanner input)
-    {
-        int itemPositionToLease=0;
-        do {
-            System.out.println("Here are all the items available: ");
-            listAllItems();
-            System.out.println("Enter the number (#) of the item you would like to lease : ");
-            itemPositionToLease = validIntegerInput(input);
-            if (itemPositionToLease < 0 || itemPositionToLease > allItemsArray.length-1) {
-                System.out.println("Error, try again. Please enter a number between 0" + " and " + (allItemsArray.length - 1));
+    //Method to edit a client editClient()
+    static void editClient(Scanner input){
+        if(allClientsArray[allClientsArray.length-1]==null){
+            System.out.println("There's no client yet.");
+        }else {
+            int positionClient=takeNumberOfTheClient(input,"edit");
+
+            System.out.print("What do you want to modify : \"Name\", \"Phone Number\" or \"Email\"? : ");
+            String clientModification = input.next();
+            if(clientModification.equalsIgnoreCase("Name")){
+                System.out.print("Enter a new name: ");
+                String newName = input.next();
+                allClientsArray[positionClient].setNameClient(newName);
+                System.out.println("This client's name was successfully modified");
+                displayClientInfo(positionClient);
+            } else if (clientModification.equalsIgnoreCase("Phone number")) {
+                System.out.print("Enter a new phone number: ");
+                String newPhoneNumber = input.next();
+                allClientsArray[positionClient].setPhoneNumberClient(newPhoneNumber);
+                System.out.println("This client's phone number was successfully modified");
+                displayClientInfo(positionClient);
+            } else if (clientModification.equalsIgnoreCase("Email")) {
+                System.out.print("Enter a new name: ");
+                String newEmail = input.next();
+                allClientsArray[positionClient].setEmailClient(newEmail);
+                System.out.println("This client's e-mail was successfully modified");
+                displayClientInfo(positionClient);
             }
-        } while (itemPositionToLease < 0 || itemPositionToLease > allItemsArray.length-1);
-        return itemPositionToLease;
+        }
     }
 
-    //Method to lease an item to client leaseItemToClient() :
+    //Method to display a specific client's info :
+    static void displayClientInfo(int i){
+        System.out.println("Here are the information of client #" + i + " :");
+        System.out.println(allClientsArray[i]);
+    }
+    //------------------------------------------------------------------------------------------------
+    //CHOICE 9 : 9- Lease an item to a client
+
+    //Method to lease an item to client :
     static void leaseItemToClient(Scanner input) {
         int clientPositionToLeaseTo;
         if (allItemsArray[allItemsArray.length-1] != null && allClientsArray[allClientsArray.length-1] != null) {
@@ -756,50 +778,17 @@ public class Driver {
             }
         }
     }
+    //------------------------------------------------------------------------------------------------
+    //CHOICE 10 : 10- Return an item from a client
 
-    //Method to display the leased items of a client displayLeasedItemOfClient() :
-    static int displayLeasedItemOfClient(Scanner input,String message){
-        int clientPosition=0;
-        if(allClientsArray[allClientsArray.length-1]==null)
-        {
-            System.out.println("There are no clients");
-        }
-        else {
-            clientPosition = takeNumberOfTheClient(input, message);
-            Library[] leasedItemByClient = allClientsArray[clientPosition].getItemsLeasedByClient();
-            if (leasedItemByClient[leasedItemByClient.length - 1] != null) {
-                for (int i = 0; i < leasedItemByClient.length; i++) {
-                    System.out.println("Item#" + i + "\n" + leasedItemByClient[i] + "\n");
-                }
-            } else {
-                System.out.println("Sorry there are no items leased");
-            }
-        }
-        return clientPosition;
-    }
-
-    //Method to display the leased items of all the clients displayLeasedItemsOfAllClients():
-    static void displayLeasedItemsOfAllClients(){
-        if(allClientsArray[allClientsArray.length-1]==null)
-        {
-            System.out.println("There are no clients");
-        }
-        else {
-            for (int j = 0; j < allClientsArray.length; j++) {
-                Library[] leasedItemByClient = allClientsArray[j].getItemsLeasedByClient();
-                System.out.println("Client#" + j);
-                for (int i = 0; i < leasedItemByClient.length; i++) {
-                    System.out.println(leasedItemByClient[i] + "\n");
-                }
-                System.out.println("\n");
-            }
-        }
-    }
-    //Method to return an item of a client returnItemFromClient() :
+    //Method to return an item of a client :
     static void returnItemFromClient(Scanner input)
     {
-        int clientPosition = displayLeasedItemOfClient(input,"return an item from");
-        Library[] leasedItemsOfClient = allClientsArray[clientPosition].getItemsLeasedByClient();
+        if(allClientsArray[allClientsArray.length-1]==null){
+            System.out.println("There's not client");
+        }else{
+            int clientPosition = displayLeasedItemOfClient(input,"return an item from");
+            Library[] leasedItemsOfClient = allClientsArray[clientPosition].getItemsLeasedByClient();
 
 
             System.out.print("Which number of item (#) does the client wish to return:");
@@ -807,7 +796,7 @@ public class Driver {
             do {
                 itemPosition = validIntegerInput(input);
                 if (itemPosition < 0 || itemPosition > leasedItemsOfClient.length - 1) {
-                    System.out.print("\nSSorry this is not a valid input please try again: ");
+                    System.out.print("\nSorry this is not a valid input please try again: ");
                 }
             } while (itemPosition < 0 || itemPosition > leasedItemsOfClient.length - 1);
 
@@ -827,7 +816,6 @@ public class Driver {
                 addMediaToArray((Media)leasedItemsOfClient[itemPosition]);
             }
 
-
             //delete the item from the leased items of the client
             for (int i=itemPosition;i<leasedItemsOfClient.length-1;i++)
             {
@@ -839,8 +827,53 @@ public class Driver {
                 tempArray[i]=leasedItemsOfClient[i];
             }
             allClientsArray[clientPosition].setItemsLeasedByClient(tempArray);
+        }
     }
+    //------------------------------------------------------------------------------------------------
+    //CHOICE 11 : 11- Show all items leased by a client
 
+    //Method to display the leased items by a client :
+    static int displayLeasedItemOfClient(Scanner input,String message){
+        int clientPosition=0;
+        if(allClientsArray[allClientsArray.length-1]==null)
+        {
+            System.out.println("There are no clients");
+        }
+        else {
+            clientPosition = takeNumberOfTheClient(input, message);
+            Library[] leasedItemByClient = allClientsArray[clientPosition].getItemsLeasedByClient();
+            if (leasedItemByClient[leasedItemByClient.length - 1] != null) {
+                for (int i = 0; i < leasedItemByClient.length; i++) {
+                    System.out.println("Item#" + i + "\n" + leasedItemByClient[i] + "\n");
+                }
+            } else {
+                System.out.println("Sorry there are no items leased");
+            }
+        }
+        return clientPosition;
+    }
+    //------------------------------------------------------------------------------------------------
+    //CHOICE 12 : 12- Show all leased items (by all clients)
+
+    //Method to display the leased items of all the clients :
+    static void displayLeasedItemsOfAllClients(){
+        if(allClientsArray[allClientsArray.length-1]==null)
+        {
+            System.out.println("There are no clients");
+        }
+        else {
+            for (int j = 0; j < allClientsArray.length; j++) {
+                Library[] leasedItemByClient = allClientsArray[j].getItemsLeasedByClient();
+                System.out.println("Client#" + j);
+                for (int i = 0; i < leasedItemByClient.length; i++) {
+                    System.out.println(leasedItemByClient[i] + "\n");
+                }
+                System.out.println("\n");
+            }
+        }
+    }
+    //------------------------------------------------------------------------------------------------
+    //CHOICE 13 : 13- Display the biggest book
 
     //Display the biggest book getBiggestBook() :
     static void getBiggestBook(Library [] items) {
@@ -863,10 +896,13 @@ public class Driver {
             else {
                 System.out.println("This is not an array of books");
             }
-
         }
     }
-    //Copy books copyBooks() :
+
+    //------------------------------------------------------------------------------------------------
+    //CHOICE 14 : 14- Make a copy of the books array
+
+    //Method to make a copy of the books array :
     static Book [] copyBook(Library []items){
         Book[] copy = new Book[items.length];
         if(items[items.length-1]==null)
@@ -885,6 +921,9 @@ public class Driver {
         }
         return copy;
     }
+    //------------------------------------------------------------------------------------------------
+    //MAIN
+    //------------------------------------------------------------------------------------------------
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
@@ -1058,10 +1097,9 @@ public class Driver {
                         break;
                     }
                 }
-
             }while(menuChoice!=0);
         }
-        }
     }
+}
 
 
