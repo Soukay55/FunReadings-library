@@ -3,7 +3,13 @@ package SecondPackage;
 import ThirdPackage.Book;
 import ThirdPackage.Library;
 import ThirdPackage.Media;
+//---------------------------------------------------------------------
+// Assignment 1
+// Question: Client Class
+// Written by: Wissem Oumsalem (40291712) and Soukayna Haitami (40280964)
+//-----------------------------------------------------------------------
 
+//The purpose of this code is to implement the class client that will be used in the driver
 public class Client {
 
     //Attributes :

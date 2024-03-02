@@ -1,6 +1,14 @@
 package ThirdPackage;
-
 import SecondPackage.Client;
+
+//---------------------------------------------------------------------
+// Assignment 1
+// Question: Library Class
+// Written by: Wissem Oumsalem (40291712) and Soukayna Haitami (40280964)
+//-----------------------------------------------------------------------
+
+//The purpose of this program is to implement the parent class Library. This class will have 3 children
+//the classes book,journal and media.
 
 public abstract class Library {
 

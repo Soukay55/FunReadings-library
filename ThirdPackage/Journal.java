@@ -1,5 +1,11 @@
 package ThirdPackage;
+//---------------------------------------------------------------------
+// Assignment 1
+// Question: Journal Class
+// Written by: Wissem Oumsalem (40291712) and Soukayna Haitami (40280964)
+//-----------------------------------------------------------------------
 
+//This code's purpose is to implement the journal class, a child of the library class
 public class Journal extends Library{
 
     //Attributes

@@ -5,6 +5,16 @@ import ThirdPackage.Book;
 import ThirdPackage.Journal;
 import ThirdPackage.Media;
 import java.util.Scanner;
+//---------------------------------------------------------------------
+// Assignment 1
+// Question: Driver
+// Written by: Wissem Oumsalem (40291712) and Soukayna Haitami (40280964)
+//-----------------------------------------------------------------------
+
+//The purpose of this code is to implement the virtual library using the client,library,book,media and journal classes
+//this program manages all the items of the Library and the clients. Only the employees can use it. This program keeps
+//track of the leased items, the available items and the list of items the clients have each leased. It can also perform operations
+//in the library like adding new items, deleting them and returning and leasing them to clients.
 public class Driver {
     //------------------------------------------------------------------------------------------------
     //ATTRIBUTES :
@@ -98,7 +108,7 @@ public class Driver {
     //Method to ask the user if he wants the menu or a predefined Scenario :
     static int menuOrPredefinedScenario(Scanner input)
     {
-        System.out.print("Hello welcome to FunReadings Library what would you like to do ?\n1-Display the menu\n2-Run a predefined scenario"
+        System.out.print("Hello welcome to Soukayna Haitami's and Wissem Oumsalem's FunReadings Library what would you like to do ?\n1-Display the menu\n2-Run a predefined scenario"
                 +"\nPlease enter your choice (1 or 2) >>");
         int choice = validIntegerInput(input);
         while(choice!=1&&choice!=2)
@@ -1101,6 +1111,7 @@ public class Driver {
                     }
                 }
             }while(menuChoice!=0);
+            System.out.println("Goodbye see you soon!");
         }
     }
 }
