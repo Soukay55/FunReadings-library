@@ -96,7 +96,7 @@ public class Driver {
     //MENU
 
     //Method to ask the user if he wants the menu or a predefined Scenario :
-    public static int menuOrPredefinedScenario(Scanner input)
+    static int menuOrPredefinedScenario(Scanner input)
     {
         System.out.print("Hello welcome to FunReadings Library what would you like to do ?\n1-Display the menu\n2-Run a predefined scenario"
                 +"\nPlease enter your choice (1 or 2) >>");
@@ -109,7 +109,7 @@ public class Driver {
         return choice;
     }
     //Method to display main menu (Choice 1):
-    public static void displayMenu() {
+    static void displayMenu() {
         System.out.print("| What would you like to do?\n"
                 + "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n"
                 + "| 1 >> Add an item \n"
@@ -131,7 +131,7 @@ public class Driver {
                 + "\n Please enter your choice and press <Enter>: ");
     }
     //Method to collect the user's choice of action listed in the main menu :
-    public static int getChoiceMenu(Scanner input)
+    static int getChoiceMenu(Scanner input)
     {
         displayMenu();
         int choice =0;
@@ -139,7 +139,7 @@ public class Driver {
         return choice;
     }
     //Method to make sure that the user's input for the menu's choice is valid in the range 0-14 :
-    public static int validateChoiceMenu(int choice,Scanner input)
+    static int validateChoiceMenu(int choice,Scanner input)
     {
         choice=validIntegerInput(input);
         while (choice>14||choice<0)
@@ -155,7 +155,7 @@ public class Driver {
     //OPTION 1 : 1- Add an item
 
     //Method to add an item :
-    public static void addItem(Library item){
+    static void addItem(Library item){
             if (allItemsArray[allItemsArray.length-1] == null) {
                 allItemsArray[allItemsArray.length-1] = item;
             }
