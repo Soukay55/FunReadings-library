@@ -34,6 +34,14 @@ public class Driver {
     {
         allClientsArray = new Client[1];
     }
+
+    static void displayArray(Library[]item)
+    {
+        for (int i=0;i<item.length;i++)
+        {
+            System.out.println(item[i]);
+        }
+    }
     //Method that asks the user if he wants the menu or a predefined Scenario menuOrPredefinedScenario(Scanner input):
     public static int menuOrPredefinedScenario(Scanner input)
     {
@@ -835,32 +843,44 @@ public class Driver {
 
 
     //Display the biggest book getBiggestBook() :
-    static void getBiggestBook(){
-        Book biggestBook=allBooksArray[0];
-        int biggestBookPosition=0;
-        for(int i=1; i<allBooksArray.length;i++){
-            if(allBooksArray[i].getNumberPages()>biggestBook.getNumberPages()){
-                biggestBook=allBooksArray[i];
-                biggestBookPosition=i;
-            }
+    static void getBiggestBook(Library [] items) {
+        if(items[items.length-1]==null)
+        {
+            System.out.println("This array is empty");
         }
-        System.out.println("The biggest book is the Book #" + biggestBookPosition);
+        else {
+            if (items.getClass().equals(Book[].class)) {
+                Book biggestBook = (Book) items[0];
+                int biggestBookPosition = 0;
+                for (int i = 1; i < allBooksArray.length; i++) {
+                    if (allBooksArray[i].getNumberPages() > biggestBook.getNumberPages()) {
+                        biggestBook = allBooksArray[i];
+                        biggestBookPosition = i;
+                    }
+                }
+                System.out.println("The biggest book is the Book #" + biggestBookPosition);
+            }
+            else {
+                System.out.println("This is not an array of books");
+            }
+
+        }
     }
     //Copy books copyBooks() :
     static Book [] copyBook(Library []items){
-        Book [] copy = new Book[items.length];
-        System.out.println(items.getClass());
-        System.out.println(copy.getClass());
-        if(items.getClass().equals(copy.getClass()))
+        Book[] copy = new Book[items.length];
+        if(items[items.length-1]==null)
         {
-            for (int i=0;i<copy.length;i++)
-            {
-                copy[i] = (Book) items[i];
-            }
+            System.out.println("This array is empty");
         }
-        else
-        {
-            System.out.println("This is not an array an array of books");
+        else {
+            if (items.getClass().equals(copy.getClass())) {
+                for (int i = 0; i < copy.length; i++) {
+                    copy[i] = (Book) items[i];
+                }
+            } else {
+                System.out.println("This is not an array of books");
+            }
         }
         return copy;
     }
@@ -893,27 +913,35 @@ public class Driver {
 
 
             //Display the user's information
+            System.out.println();
             System.out.println("Here are the 3 users created:");
+            System.out.println();
             System.out.println(client1);
+            System.out.println();
             System.out.println(client2);
+            System.out.println();
             System.out.println(client3);
+            System.out.println();
 
             //Test equals() of 2 objects of different classes
-            System.out.println("book=journal? Test equals() of 2 objects of different classes");
+            System.out.println("book=journal? \nTest equals() of 2 objects of different classes");
             System.out.println(book.equals(journal));
+            System.out.println();
 
             //Test equals() of 2 objects of same class with different values
-            System.out.println("book 1 = book 2? Test equals() of 2 objects of same class with different values");
+            System.out.println("book 1 = book 2? \nTest equals() of 2 objects of same class with different values");
             Book book2 = new Book(450,"After","Anna",2001);
             System.out.println(book.equals(book2));
+            System.out.println();
 
             //Test equals() of 2 objects of same class with same values
-            System.out.println("journal 1 = journal 2? Test equals() of 2 objects of same class with same values );
+            System.out.println("journal 1 = journal 2? \nTest equals() of 2 objects of same class with same values ");
             Journal journal2 = new Journal(25,"The New York Times","Soukay",2024);
             System.out.println(journal.equals(journal2));
+            System.out.println();
 
             //Create an array for Book
-            Book [] books = {book,book2};
+            Book [] books = {book,book2,new Book(165,"aa","bb",2024),new Book(75,"c","d",2024)};
 
             //Create an array for Journal
             Journal [] journals = {journal, new Journal()};
@@ -923,6 +951,24 @@ public class Driver {
 
             //Create an array for all the items(Book, Journal and Media)
             Library[] allItems = {book,journal,media};
+
+            System.out.println("This is the array of type Library:");
+            displayArray(allItems);
+            System.out.println();
+
+            //call function getBiggestBook
+            System.out.println("Here we call the function getBiggestBook() on this array of books:");
+            displayArray(books);
+            System.out.println();
+            getBiggestBook(books);
+            System.out.println();
+
+            //callfunction copyBooks on a media
+            System.out.println("Here we call the function copyBooks() on this array of media:");
+            displayArray(medias);
+            System.out.println();
+            System.out.println("The function is executed here is the output: ");
+            copyBook(medias);
 
         }
         else {
@@ -1002,12 +1048,13 @@ public class Driver {
                     }
                     case 13:
                     {
-                        getBiggestBook();
+                        getBiggestBook(allBooksArray);
                         break;
                     }
                     case 14:
                     {
-
+                        copyBook(allBooksArray);
+                        System.out.println("The copy has been made");
                         break;
                     }
                 }
