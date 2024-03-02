@@ -69,10 +69,5 @@ public class Media extends Library{
         Media otherMedia = (Media) otherObject;
         return (typeMedia==otherMedia.typeMedia);
     }
-
-    public String getID()
-    {
-        return idMedia;
-    }
 }
 

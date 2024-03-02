@@ -74,7 +74,5 @@ public abstract class Library {
         return (name==otherLibrary.name && author==otherLibrary.author && yearPublication==otherLibrary.yearPublication);
     }
 
-    public abstract String getID();
-
 
 }

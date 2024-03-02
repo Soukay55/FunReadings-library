@@ -72,9 +72,4 @@ public class Book extends Library{
         Book otherBook = (Book) otherObject;
         return (numberPages==otherBook.numberPages);
     }
-
-    public String getID()
-    {
-        return idBook;
-    }
 }

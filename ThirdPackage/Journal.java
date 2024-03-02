@@ -69,9 +69,4 @@ public class Journal extends Library{
         Journal otherJournal = (Journal) otherObject; //
         return (volumeNumber ==otherJournal.volumeNumber);
     }
-
-    public String getID()
-    {
-        return idJournal;
-    }
 }
