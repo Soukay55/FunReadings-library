@@ -398,6 +398,8 @@ public class Driver {
         }
         System.out.println();
         System.out.println("Here is the item's information: "+allItemsArray[index]);
+
+        //IF THE ITEM IS A BOOK
         if(allItemsArray[index].getClass().equals(Book.class))
         {
             System.out.println();
@@ -454,6 +456,7 @@ public class Driver {
             allBooksArray[indexOfBookInBookArray]=(Book)allItemsArray[index];
 
         }
+        //IF THE ITEM IS A JOURNAL
         else if(allItemsArray[index].getClass().equals(Journal.class))
         {
             System.out.println();
@@ -510,6 +513,7 @@ public class Driver {
             allJournalArray[indexOfJournalInJournalArray]=(Journal)allItemsArray[index];
 
         }
+        //IF THE ITEM IS A MEDIA
         else
         {
             System.out.println();
@@ -564,7 +568,6 @@ public class Driver {
             }
             allItemsArray[index] = media;
             allMediaArray[indexOfMediaInMediaArray]=(Media)allItemsArray[index];
-
         }
     }
     //------------------------------------------------------------------------------------------------
