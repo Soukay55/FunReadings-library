@@ -878,6 +878,7 @@ public class Driver {
                 for (int i = 0; i < copy.length; i++) {
                     copy[i] = (Book) items[i];
                 }
+                System.out.println("This array has been copied successfully");
             } else {
                 System.out.println("This is not an array of books");
             }
@@ -1054,7 +1055,6 @@ public class Driver {
                     case 14:
                     {
                         copyBook(allBooksArray);
-                        System.out.println("The copy has been made");
                         break;
                     }
                 }
