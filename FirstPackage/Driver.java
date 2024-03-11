@@ -896,15 +896,21 @@ public class Driver {
         }
         else {
             if (items.getClass().equals(Book[].class)) {
+
+                Book []copyArray = copyBook(items);
+
                 Book biggestBook = (Book) items[0];
+
                 int biggestBookPosition = 0;
-                for (int i = 1; i < allBooksArray.length; i++) {
-                    if (allBooksArray[i].getNumberPages() > biggestBook.getNumberPages()) {
-                        biggestBook = allBooksArray[i];
+                for (int i = 1; i < copyArray.length; i++) {
+                    if (copyArray[i].getNumberPages() > biggestBook.getNumberPages()) {
+                        biggestBook = copyArray[i];
                         biggestBookPosition = i;
                     }
                 }
                 System.out.println("The biggest book is the Book #" + biggestBookPosition);
+                System.out.println(copyArray[biggestBookPosition]);
+
             }
             else {
                 System.out.println("This is not an array of books");
